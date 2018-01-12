@@ -9,6 +9,7 @@ import NFAnalysisReport from './NFAnalysisReport';
 import NFLayout from './NFLayout';
 
 const { Header, Footer, Sider, Content } = Layout;
+const { Router } = Redirect;
 
 {/*
   { path: 'workplace',
@@ -39,8 +40,10 @@ const routeConfig = [
 class NFContent extends React.Component {
   render() {
     return (
-      <Router routes={routeConfig} />, document.body
-    
+      <Content>
+        <NFAnalysisReport>NFAnalysisReport</NFAnalysisReport>
+        <NFWorkPlace>NFWorkPlace</NFWorkPlace>
+      </Content>
     );
   }
 }
