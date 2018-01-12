@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import NFLayout from './Components/NFLayout';
+import NFFooter from './Components/NFFooter';
+
+import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+
+const { Header, Content, Footer, Sider } = Layout;
+
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <NFLayout/>
       </div>
     );
   }
