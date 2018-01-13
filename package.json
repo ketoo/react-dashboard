@@ -4,10 +4,17 @@
   "private": true,
   "dependencies": {
     "antd": "^3.1.1",
+    "jquery": "3.2.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17",
-    "react-router": "^4.1.1"
+
+    "@antv/g2": "^3.0.4-beta.3",
+    "mobx": "3.4.1",
+    "g2": "2.3.13",
+    "antv": "0.2.2",
+    "bizcharts": "3.1.0",
+    "recharts":"1.0.0-beta.9"
   },
   "scripts": {
     "start": "react-scripts start",
