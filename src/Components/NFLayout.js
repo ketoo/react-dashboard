@@ -31,7 +31,7 @@ class NFLayout extends React.Component {
             
           <Content style={{ margin: '0 16px' }}>
             <NFHeader/>
-            <Greeting isLoggedIn={false} />
+            <Greeting isLoggedIn={true} />
           </Content>
           <NFFooter/>
         </Layout>
