@@ -21,12 +21,12 @@ class NFLayout extends React.Component {
           return <NFContent/>;
         }
        
-        return Form.create({})(NFLogin);
+        return Form.create()(NFLogin);
       }
 
       return (
         <Layout style={{ minHeight: '100vh' }}>
-            <NFSiderMenu/>
+            <NFSiderMenu />
         <Layout>
             
           <Content style={{ margin: '0 16px' }}>

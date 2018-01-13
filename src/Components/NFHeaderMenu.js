@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.min.css';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { observable, computed, action } from "mobx";
+import { observer } from "mobx-react";
 
 const { Header, Content, Footer, Sider, MenuItemGroup } = Layout;
 const SubMenu = Menu.SubMenu;
 
+@observer
 class NFHeaderMenu extends React.Component {
 
     state = {

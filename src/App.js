@@ -17,7 +17,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <NFLayout/>
+        <NFLayout store={this.props.store}/>
       </div>
     );
   }
