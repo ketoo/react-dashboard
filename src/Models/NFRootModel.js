@@ -1,10 +1,10 @@
 import { observable, observer, computed, action } from "mobx";
 
 class NFRootModel {
-  @observable isLoggedIn;
+  @observable isLoggedIn = false;
 
   @computed
-  get LoginState() {
+  get loginState() {
     return this.isLoggedIn;
   }
 

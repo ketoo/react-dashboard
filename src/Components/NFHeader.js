@@ -12,7 +12,7 @@ class NFHeader extends React.Component {
   render() {
     return (
         <Header style={{ background: '#000', padding: 0, minHeight: '10vh' }} >
-        <NFHeaderMenu/>
+        <NFHeaderMenu store={this.props.store}/>
         {/*
             <div className="App">
             <header className="App-header">

@@ -4,6 +4,8 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
 
+import NFRootModel from '../Models/NFRootModel';
+
 const { Header, Content, Footer, Sider, MenuItemGroup } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -13,7 +15,12 @@ class NFHeaderMenu extends React.Component {
     state = {
         current: 'mail',
       }
+
+      @action
       handleClick = (e) => {
+
+        window.store.setLoginState(false);
+
         console.log('click ', e);
         this.setState({
           current: e.key,
