@@ -58,7 +58,7 @@ class NFLayout extends React.Component {
         <Layout style={{ minHeight: '100vh' }}>
             <IsShowSiderMenu isLoggedIn={this.props.store.isLoggedIn}/>
         <Layout>
-          <Content style={{ margin: '0 16px' }}>
+          <Content store={this.props.store} >
             <IsShowHeader isLoggedIn={this.props.store.isLoggedIn}/>
             <IsShowContent isLoggedIn={this.props.store.isLoggedIn} />
             <IsShowLoginForm isLoggedIn={this.props.store.isLoggedIn} />
