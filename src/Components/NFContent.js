@@ -23,17 +23,17 @@ class NFContent extends React.Component {
 
     const contentType = this.props.store.contentType;
     console.log("contentType", contentType);
-    
+
     return (
       
       <Content>
         { contentType == 1 && 
           <NFDailyNewUser  store={this.props.store}/>
         }
-        { contentType == "2" && 
+        { contentType == 2 && 
           <NFDailyActiveUser  store={this.props.store}/>
         }
-        { contentType == "3" && 
+        { contentType == 3 && 
           <NFDailyRetentionRatio  store={this.props.store}/>
         }
       </Content>

@@ -2,6 +2,9 @@ import { observable, observer, computed, action } from "mobx";
 
 class NFRootModel {
   @observable isLoggedIn = false;
+  @observable contentType = 1;
+
+
 
   @computed
   get loginState() {
@@ -12,8 +15,6 @@ class NFRootModel {
   setLoginState(isLogin) {
     this.isLoggedIn =isLogin;
   }
-
-  @observable contentType = 1;
 
   @computed
   get getContentType() {

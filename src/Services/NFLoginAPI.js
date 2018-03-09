@@ -1,17 +1,26 @@
-import { post, get } from './Ajax'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
+import NFRootModel from '../Models/NFRootModel';
 
-function login(user, password) {
+export function login(userName, password) {
 
-fetch('https://api-staging.latipay.net/org/account/login', {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    email: 'yourValue',
-    password: 'yourOtherValue',
+  axios.post('https://api-staging.latipay.net/org/account/login', {
+    email: userName,
+    password: password
+  }, {
+    headers: {'X-Custom-Header': 'foobar'}
   })
-})
-
+  .then(function (response) {
+    console.log(response.data);
+    
+    {response.data.code == 0 && 
+      window.store.setLoginState(true);
+    }
+    
+    //response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 }
