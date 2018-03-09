@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import './NFLogin.css';
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
+import NFRootModel from '../Models/NFRootModel';
 
 const FormItem = Form.Item;
 
@@ -17,6 +18,7 @@ class NFLoginForm extends React.Component {
         if (!err) {
           console.log('Received values of form: ', values);
           window.store.setLoginState(true);
+          //NFRootModel.isLoggedIn = true;
         }
       });
     }

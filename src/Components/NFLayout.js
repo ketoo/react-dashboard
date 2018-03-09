@@ -20,48 +20,24 @@ class NFLayout extends React.Component {
   render() {
 
   const NFLogin = Form.create()(NFLoginForm);
-
-    function IsShowSiderMenu(props) {
-        const isLoggedIn = props.isLoggedIn;
-        if (isLoggedIn) {
-          return <NFSiderMenu/>;
-        }
-       
-        return null;
-    }
-    function IsShowHeader(props) {
-        const isLoggedIn = props.isLoggedIn;
-        if (isLoggedIn) {
-          return <NFHeader/>;
-        }
-       
-        return null;
-    }
-    function IsShowContent(props) {
-        const isLoggedIn = props.isLoggedIn;
-        if (isLoggedIn) {
-          return <NFContent/>;
-        }
-       
-        return null;
-    }
-    function IsShowLoginForm(props) {
-        const isLoggedIn = props.isLoggedIn;
-        if (isLoggedIn) {
-          return null;
-        }
-       
-        return <NFLogin/>;
-    }
  
     return (
         <Layout style={{ minHeight: '100vh' }}>
-            <IsShowSiderMenu isLoggedIn={this.props.store.isLoggedIn}/>
+            { this.props.store.isLoggedIn && 
+              <NFSiderMenu store={this.props.store}/>
+            }
         <Layout>
-          <Content store={this.props.store} >
-            <IsShowHeader isLoggedIn={this.props.store.isLoggedIn}/>
-            <IsShowContent isLoggedIn={this.props.store.isLoggedIn} />
-            <IsShowLoginForm isLoggedIn={this.props.store.isLoggedIn} />
+          <Content >
+            { this.props.store.isLoggedIn && 
+              <NFHeader store={this.props.store}/>
+            }
+            { this.props.store.isLoggedIn && 
+              <NFContent store={this.props.store}/>
+            }
+            { !this.props.store.isLoggedIn && 
+              <NFLogin/>
+            }
+            
           </Content>
           <NFFooter store={this.props.store}/>
         </Layout>

@@ -4,6 +4,8 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
 
+import NFMenuModel from '../Models/NFMenuModel';
+
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -19,10 +21,9 @@ class NFSiderMenu extends React.Component {
 
       @action
       handleClick = (e) => {
-
-        //window.store.setContentType(e.key);
-
         console.log('click ', e.key);
+        
+        window.store.setContentType(e.key);
       }
 
   render() {
@@ -33,7 +34,14 @@ class NFSiderMenu extends React.Component {
           onCollapse={this.onCollapse}
         >
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu 
+          onClick={this.handleClick} 
+          theme="dark" 
+          defaultSelectedKeys={['1']} 
+          mode="inline"
+          >
+
+            
 
             <Menu.Item key="100">
               <Icon type="pie-chart" />

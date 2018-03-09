@@ -8,6 +8,8 @@ import NFAnalysisReport from './NFAnalysisReport';
 import NFDailyNewUser from './NFDailyNewUser';
 import NFDailyActiveUser from './NFDailyActiveUser';
 import NFDailyRetentionRatio from './NFDailyRetentionRatio';
+import NFMenuModel from '../Models/NFMenuModel';
+import NFRootModel from '../Models/NFRootModel';
 
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
@@ -19,26 +21,21 @@ class NFContent extends React.Component {
 
   render() {
 
-    function Greeting(props) {
-      const contentType = props.contentType;
-      if (contentType == 1) {
-        return <NFDailyNewUser/>;
-      }
-      else if (contentType == 2)
-      {
-        return <NFDailyActiveUser/>;
-      }
-      else if (contentType == 3)
-      {
-        return <NFDailyRetentionRatio/>;
-      }
-      return <NFMonitor/>;
-    }
-
+    const contentType = this.props.store.contentType;
+    console.log("contentType", contentType);
+    
     return (
+      
       <Content>
-        
-        <Greeting contentType={3} />,
+        { contentType == 1 && 
+          <NFDailyNewUser  store={this.props.store}/>
+        }
+        { contentType == "2" && 
+          <NFDailyActiveUser  store={this.props.store}/>
+        }
+        { contentType == "3" && 
+          <NFDailyRetentionRatio  store={this.props.store}/>
+        }
       </Content>
     );
   }
