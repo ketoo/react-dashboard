@@ -8,6 +8,7 @@
     "antd": "^3.1.1",
     "antv": "0.2.2",
     "autoprefixer": "7.1.6",
+    "axios": "^0.18.0",
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
@@ -109,5 +110,8 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^0.17.4"
   }
 }

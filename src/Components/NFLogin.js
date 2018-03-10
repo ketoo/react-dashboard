@@ -20,8 +20,6 @@ class NFLoginForm extends React.Component {
         if (!err) {
           console.log('Received values of form: ', values);
 
-          //window.store.setLoginState(true);
-
           login(values.userName, values.password);
         }
       });

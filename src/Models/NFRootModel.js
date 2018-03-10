@@ -4,8 +4,6 @@ class NFRootModel {
   @observable isLoggedIn = false;
   @observable contentType = 1;
 
-
-
   @computed
   get loginState() {
     return this.isLoggedIn;

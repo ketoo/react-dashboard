@@ -10,14 +10,10 @@ import { View , DataSet} from '@antv/data-set';
 
 const { Content } = Layout;
 
-class NFDailyActiveUser extends React.Component {
+class NFLevelPreview extends React.Component {
     
 
   render() {
-
-    function onChange(date, dateString) {
-        console.log(date, dateString);
-      }
 
     // 数据源
     const data = [
@@ -51,14 +47,14 @@ class NFDailyActiveUser extends React.Component {
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
             </Breadcrumb>
 
-                <DatePicker onChange={onChange}/>
-           
-           <Chart width={900} height={400} data={data} scale={cols}>
-                <Axis name="day" />
-                <Axis name="user" />
-                <Tooltip />
-                <Geom type="interval" position="day*user" color="user" />
-            </Chart>
+                    <Chart height={320} width={900} data={data} scale={cols}>
+                        <Legend />
+                        <Axis name="day" />
+                        <Axis name="user" label={{formatter: val => `${val}°C`}}/>
+                        <Tooltip crosshairs={{type : "y"}}/>
+                        <Geom type="line" position="day*user" size={2} color={'city'} />
+                        <Geom type='point' position="day*user" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
+                    </Chart>
 
             <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
             {
@@ -86,4 +82,4 @@ class NFDailyActiveUser extends React.Component {
   }
 }
 
-export default NFDailyActiveUser;
+export default NFLevelPreview;

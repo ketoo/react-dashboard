@@ -8,6 +8,7 @@ import NFAnalysisReport from './NFAnalysisReport';
 import NFDailyNewUser from './NFDailyNewUser';
 import NFDailyActiveUser from './NFDailyActiveUser';
 import NFDailyRetentionRatio from './NFDailyRetentionRatio';
+import NFLevelPreview from './NFLevelPreview';
 import NFMenuModel from '../Models/NFMenuModel';
 import NFRootModel from '../Models/NFRootModel';
 
@@ -35,6 +36,10 @@ class NFContent extends React.Component {
         }
         { contentType == 3 && 
           <NFDailyRetentionRatio  store={this.props.store}/>
+        } 
+        
+        { contentType == 4 && 
+          <NFLevelPreview  store={this.props.store}/>
         }
       </Content>
     );

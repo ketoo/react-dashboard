@@ -37,19 +37,23 @@ class NFDailyNewUser extends React.Component {
         
         // 定义度量
         const cols = {
-            user: { alias: '销售量' },
+            user: { alias: 'New user of this day' },
             day: { alias: '游戏种类' }
         };
 
-        var platNewUser = ['1', '2', '3'];
+        var platNewUser = [ 
+            { key: '1', age: 21, gender: 'male' },
+            { key: '2', age: 21, gender: 'male' },
+            { key: '3', age: 21, gender: 'male' }
+        ];
 
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <DatePicker onChange={onChange}/>
             </Breadcrumb>
 
+                <DatePicker onChange={onChange}/>
 
             <Chart width={900} height={400} data={data} scale={cols}>
                 <Axis name="day" />
@@ -61,10 +65,10 @@ class NFDailyNewUser extends React.Component {
             <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
             {
 
-                platNewUser.map(function (keyValue) {
+                platNewUser.map((keyValue) => {
                 return <div>
 
-                    <Breadcrumb.Item>{keyValue}</Breadcrumb.Item>
+                    <Breadcrumb.Item>{keyValue.key}</Breadcrumb.Item>
 
                     <Chart height={320} width={900} data={data} scale={cols}>
                     <Legend />
