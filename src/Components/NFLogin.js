@@ -8,6 +8,8 @@ import { observer } from "mobx-react";
 import NFRootModel from '../Models/NFRootModel';
 import {login} from '../Services/NFLoginAPI';
 
+import logoImg from '../Images/logo.gif'
+
 const FormItem = Form.Item;
 
 @observer
@@ -27,9 +29,10 @@ class NFLoginForm extends React.Component {
     render() {
       const { getFieldDecorator } = this.props.form;
       return (
-        <div><img src="../public/logo.gif" alt="" /></div>
-        
+
         <div className="all_form">
+          <img src={logoImg} alt='' width='200' height='200' />
+
           <Form onSubmit={this.handleSubmit} className="login-form">
             <FormItem>
               {getFieldDecorator('userName', {

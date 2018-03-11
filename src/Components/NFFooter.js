@@ -7,7 +7,7 @@ class NFFooter extends React.Component {
   render() {
     return (
       <Footer style={{ textAlign: 'center' }}>
-            for testing
+            Data analyis plat
       </Footer>
     );
   }

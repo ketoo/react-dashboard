@@ -89,10 +89,10 @@ class NFDailyNewUser extends React.Component {
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item>Overview</Breadcrumb.Item>
+                <DatePicker className="login-form-forgot" default={moment()} value={moment()} onChange={onChange}/>
             </Breadcrumb>
 
-            <DatePicker default={moment()} onChange={onChange}/>
             { totalData && 
                 <Chart width={900} height={400} data={totalData} scale={cols}>
                     <Axis name="time" />
@@ -107,10 +107,10 @@ class NFDailyNewUser extends React.Component {
                     <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
                         { 
                         <div>
-                            <Breadcrumb.Item>{platNewUser[key].plat}</Breadcrumb.Item>
-                            {
-                                console.log("item.plat", platNewUser[key].plat)
-                            }
+                            <Breadcrumb style={{ margin: '16px 0' }}>
+                                <Breadcrumb.Item>{"plat:" + key}</Breadcrumb.Item>
+                            </Breadcrumb>
+
                             <Chart height={320} width={900} data={platNewUser[key]} scale={cols}>
                             <Legend />
                             <Axis name="time" />
