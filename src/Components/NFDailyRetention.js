@@ -12,13 +12,13 @@ import { observer } from "mobx-react";
 import moment from 'moment';
 import { DatePicker } from 'antd';
 
-import {queryDailyNewUser, queryCurrentDailyNewUser, queryDailyAvtivelyUser, queryCurrentDailyAvtivelyUser} from '../Services/NFBusinessAPI';
+import {queryRetention, queryCurrentRetention} from '../Services/NFBusinessAPI';
 import NFRootModel from '../Models/NFRootModel';
 
 const { Content } = Layout;
 
 @observer
-class NFDailyActivelyUser extends React.Component {
+class NFDailyRetention extends React.Component {
     
 
   render() {
@@ -27,7 +27,7 @@ class NFDailyActivelyUser extends React.Component {
         console.log(date, dateString);
         if (dateString != null && dateString != "")
         {
-            queryDailyAvtivelyUser(dateString);
+            queryRetention(dateString);
         }
       }
 
@@ -36,10 +36,10 @@ class NFDailyActivelyUser extends React.Component {
     var totalData ;
     var platNewUser;
 
-    if (this.props.store.dailyActivelyUserData)
+    if (this.props.store.dailyRetentionData)
     {
-        totalData = this.props.store.dailyActivelyUserData.totalUserData;
-        platNewUser = this.props.store.dailyActivelyUserData.platUserData;
+        totalData = this.props.store.dailyRetentionData.totalUserData;
+        platNewUser = this.props.store.dailyRetentionData.platUserData;
 
     }
 
@@ -83,8 +83,8 @@ class NFDailyActivelyUser extends React.Component {
 */
         // 定义度量
         const cols = {
-            todayNumber: { alias: 'Active user' },
-            time: { alias: 'New User Today' }
+            rate: { alias: 'Ratio:' },
+            day: { alias: 'New User Today' }
         };
 
  
@@ -98,10 +98,10 @@ class NFDailyActivelyUser extends React.Component {
 
             { totalData && 
                 <Chart width={900} height={400} data={totalData} scale={cols}>
-                    <Axis name="time" />
-                    <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>
+                    <Axis name="day" />
+                    <Axis name="rate" label={{formatter: val => `${val}`}}/>
                     <Tooltip/>
-                    <Geom type="interval" position="time*todayNumber" color="todayNumber" />
+                    <Geom type="interval" position="day*rate" color="rate" />
                 </Chart>
             }
             
@@ -116,11 +116,11 @@ class NFDailyActivelyUser extends React.Component {
 
                             <Chart height={320} width={900} data={platNewUser[key]} scale={cols}>
                             <Legend />
-                            <Axis name="time" />
-                            <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>
+                            <Axis name="day" />
+                            <Axis name="rate" label={{formatter: val => `${val}`}}/>
                             <Tooltip crosshairs={{type : "y"}}/>
-                            <Geom type="line" position="time*todayNumber" size={2} color={'city'} />
-                            <Geom type='point' position="time*todayNumber" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
+                            <Geom type="line" position="day*rate" size={2} color={'city'} />
+                            <Geom type='point' position="day*rate" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
                             </Chart>
                         </div>
                         }
@@ -133,4 +133,4 @@ class NFDailyActivelyUser extends React.Component {
   }
 }
 
-export default NFDailyActivelyUser;
+export default NFDailyRetention;

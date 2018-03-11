@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import './NFLogin.css';
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
-
+import { Spin } from 'antd';
 import NFRootModel from '../Models/NFRootModel';
 import {login} from '../Services/NFLoginAPI';
 

@@ -4,10 +4,10 @@ import { Layout, Menu, Breadcrumb, BackTop, Form, Icon } from 'antd';
 import NFMonitor from './NFMonitor';
 import NFLayout from './NFLayout';
 import NFLogin from './NFLogin';
-import NFAnalysisReport from './NFAnalysisReport';
+import NFAnalysisOperatePlatform from './NFAnalysisOperatePlatform';
 import NFDailyNewUser from './NFDailyNewUser';
 import NFDailyActiveUser from './NFDailyActiveUser';
-import NFDailyRetentionRatio from './NFDailyRetentionRatio';
+import NFDailyRetention from './NFDailyRetention';
 import NFLevelPreview from './NFLevelPreview';
 import NFMenuModel from '../Models/NFMenuModel';
 import NFRootModel from '../Models/NFRootModel';
@@ -28,10 +28,10 @@ class NFContent extends React.Component {
     return (
       
       <Content>
-        { contentType == 0 && 
-          <NFAnalysisReport  store={this.props.store}/>
+        
+        { contentType <=0 && 
+          <NFAnalysisOperatePlatform  store={this.props.store}/>
         }
-
         { contentType == 1 && 
           <NFDailyNewUser  store={this.props.store}/>
         }
@@ -39,9 +39,8 @@ class NFContent extends React.Component {
           <NFDailyActiveUser  store={this.props.store}/>
         }
         { contentType == 3 && 
-          <NFDailyRetentionRatio  store={this.props.store}/>
+          <NFDailyRetention  store={this.props.store}/>
         } 
-        
         { contentType == 4 && 
           <NFLevelPreview  store={this.props.store}/>
         }

@@ -10,6 +10,8 @@ class NFRootModel {
   @observable contentType = 0;
 
   @observable newUserData;
+  @observable dailyActivelyUserData;
+  @observable dailyRetentionData;
 
   @computed
   get loginState() {
@@ -40,6 +42,28 @@ class NFRootModel {
   setNewUserData(data) {
     this.newUserData =data;
   }
+
+  @computed
+  get getDailyActivelyUserData() {
+    return this.dailyActivelyUserData;
+  }
+
+  @action
+  setDailyActivelyUserData(data) {
+    this.dailyActivelyUserData =data;
+  }
+
+  @computed
+  get getDailyRetentionData() {
+    return this.dailyRetentionData;
+  }
+
+  @action
+  setDailyRetentionData(data) {
+    this.dailyRetentionData =data;
+  }
+
+
 }
 
 export default NFRootModel;

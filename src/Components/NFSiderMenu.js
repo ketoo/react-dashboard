@@ -4,8 +4,8 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
 
-import NFMenuModel from '../Models/NFMenuModel';
-import {queryDailyNewUser, queryCurrentDailyNewUser} from '../Services/NFBusinessAPI';
+import {queryCurrentDailyNewUser, queryCurrentDailyAvtivelyUser, queryCurrentRetention} from '../Services/NFBusinessAPI';
+import NFRootModel from '../Models/NFRootModel';
 
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -31,11 +31,11 @@ class NFSiderMenu extends React.Component {
         }
         if (e.key == 2)
         {
-          //queryCurrentDailyNewUser();
+          queryCurrentDailyAvtivelyUser();
         }
         if (e.key == 3)
         {
-          //queryCurrentDailyNewUser();
+          queryCurrentRetention();
         }
       }
 
@@ -54,13 +54,9 @@ class NFSiderMenu extends React.Component {
           mode="inline"
           >
 
-            <Menu.Item key="100">
-              <Icon type="pie-chart" />
-              <span>Option 1</span>
-            </Menu.Item>
-            <Menu.Item key="200">
+            <Menu.Item key="0">
               <Icon type="desktop" />
-              <span>Data result</span>
+              <span>Data Overview</span>
             </Menu.Item>
             <SubMenu
               key="sub1"

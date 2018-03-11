@@ -5,12 +5,15 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { Calendar, Badge } from 'antd';
 import { BackTop } from 'antd';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord } from 'bizcharts';
-import { DatePicker } from 'antd';
-import NFRootModel from '../Models/NFRootModel';
+
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
-import {queryDailyNewUser, queryCurrentDailyNewUser} from '../Services/NFBusinessAPI';
+
 import moment from 'moment';
+import { DatePicker } from 'antd';
+
+import {queryDailyNewUser, queryCurrentDailyNewUser} from '../Services/NFBusinessAPI';
+import NFRootModel from '../Models/NFRootModel';
 
 const { Content } = Layout;
 
@@ -22,7 +25,7 @@ class NFDailyNewUser extends React.Component {
 
     function onChange(date, dateString) {
         console.log(date, dateString);
-        if (dateString != null)
+        if (dateString != null && dateString != "")
         {
             queryDailyNewUser(dateString);
         }

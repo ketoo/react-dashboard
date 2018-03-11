@@ -6,3 +6,11 @@ npm start
 npm install axios -s
 npm i rsuite-datepicker --save
 npm install @antv/data-set --save
+
+
+
+delivery:
+
+1: npm build
+2: copy build folder to cloud server
+3: 
