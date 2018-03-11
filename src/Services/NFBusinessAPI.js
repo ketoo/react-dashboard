@@ -73,10 +73,10 @@ export function queryDailyAvtivelyUser(time) {
 
 
 export function queryCurrentRetention() {
-
     var myDate = new Date();
     var month = myDate.getMonth() + 1;
-    var dateStr = myDate.getFullYear() + "-" + month + "-" + myDate.getDate();
+    var day = myDate.getDate() - 1;
+    var dateStr = myDate.getFullYear() + "-" + month + "-" + day;
 
     queryRetention(dateStr);
 }
