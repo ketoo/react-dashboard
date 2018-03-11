@@ -80,7 +80,7 @@ class NFDailyNewUser extends React.Component {
 */
         // 定义度量
         const cols = {
-            todayNumber: { alias: 'New user of this day' },
+            todayNumber: { alias: 'New users' },
             time: { alias: 'New User Today' }
         };
 
@@ -97,35 +97,32 @@ class NFDailyNewUser extends React.Component {
                 <Chart width={900} height={400} data={totalData} scale={cols}>
                     <Axis name="time" />
                     <Axis name="todayNumber"/>
-                    <Tooltip />
-                    <Geom type="interval" position="time*todayNumber" color="time" />
+                    <Tooltip/>
+                    <Geom type="interval" position="time*todayNumber" color="todayNumber" />
                 </Chart>
             }
-
+            
             { platNewUser &&
-                Object.keys(platNewUser).map(function (key) {
-                    var itemData = platNewUser[key];
-                                
-                        itemData.map((keyValue) => {
-                        return <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+                Object.keys(platNewUser).map((key) => (  
+                    <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
                         { 
                         <div>
-
-                            <Breadcrumb.Item>{keyValue.time}</Breadcrumb.Item>
-    
-                            <Chart height={320} width={900} data={keyValue} scale={cols}>
+                            <Breadcrumb.Item>{platNewUser[key].plat}</Breadcrumb.Item>
+                            {
+                                console.log("item.plat", platNewUser[key].plat)
+                            }
+                            <Chart height={320} width={900} data={platNewUser[key]} scale={cols}>
                             <Legend />
                             <Axis name="time" />
-                            <Axis name="todayNumber" label={{formatter: val => `${val}Users`}}/>
+                            <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>
                             <Tooltip crosshairs={{type : "y"}}/>
                             <Geom type="line" position="time*todayNumber" size={2} color={'city'} />
                             <Geom type='point' position="time*todayNumber" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
                             </Chart>
                         </div>
                         }
-                    </div>  
-                    });
-                })
+                    </div> 
+                  )) 
             }
                 
           </Content>
