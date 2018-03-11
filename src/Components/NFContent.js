@@ -28,6 +28,10 @@ class NFContent extends React.Component {
     return (
       
       <Content>
+        { contentType == 0 && 
+          <NFAnalysisReport  store={this.props.store}/>
+        }
+
         { contentType == 1 && 
           <NFDailyNewUser  store={this.props.store}/>
         }

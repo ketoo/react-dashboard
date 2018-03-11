@@ -6,9 +6,15 @@ import { Calendar, Badge } from 'antd';
 import { BackTop } from 'antd';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord } from 'bizcharts';
 import { DatePicker } from 'antd';
+import NFRootModel from '../Models/NFRootModel';
+import { observable, computed, action } from "mobx";
+import { observer } from "mobx-react";
+import {queryDailyNewUser, queryCurrentDailyNewUser} from '../Services/NFBusinessAPI';
+import moment from 'moment';
 
 const { Content } = Layout;
 
+@observer
 class NFDailyNewUser extends React.Component {
     
 
@@ -16,36 +22,69 @@ class NFDailyNewUser extends React.Component {
 
     function onChange(date, dateString) {
         console.log(date, dateString);
+        if (dateString != null)
+        {
+            queryDailyNewUser(dateString);
+        }
       }
+
+
+       // 数据源
+    var totalData ;
+    var platNewUser;
+
+    if (this.props.store.newUserData)
+    {
+        totalData = this.props.store.newUserData.totalUserData;
+        platNewUser = this.props.store.newUserData.platUserData;
+
+    }
+
+    console.log("totalData", totalData);
+    console.log("platNewUser", platNewUser);
+
+    /*
+        private String plat;
+    
+        private String time;
+    
+        //渠道人数，若渠道为0，则和total一样
+        private Integer todayNumber;
+    
+        //今天总人数
+        private Integer totalNumber;
+
             // 数据源
         const data = [
-            { day: '1', user: 275, income: 2300 },
-            { day: '2', user: 115, income: 667 },
-            { day: '3', user: 120, income: 982 },
-            { day: '4', user: 350, income: 5271 },
-            { day: '5', user: 350, income: 5271 },
-            { day: '6', user: 350, income: 5271 },
-            { day: '7', user: 350, income: 5271 },
-            { day: '8', user: 350, income: 5271 },
-            { day: '9', user: 350, income: 5271 },
-            { day: '10', user: 350, income: 5271 },
-            { day: '11', user: 350, income: 5271 },
-            { day: '12', user: 350, income: 5271 },
-            { day: '13', user: 1350, income: 5271 },
-            { day: '14', user: 150, income: 3710 }
+            { time: '1', todayNumber: 275, income: 2300 },
+            { time: '2', todayNumber: 115, income: 667 },
+            { time: '3', todayNumber: 120, income: 982 },
+            { time: '4', todayNumber: 350, income: 5271 },
+            { time: '5', todayNumber: 350, income: 5271 },
+            { time: '6', todayNumber: 350, income: 5271 },
+            { time: '7', todayNumber: 350, income: 5271 },
+            { time: '8', todayNumber: 350, income: 5271 },
+            { time: '9', todayNumber: 350, income: 5271 },
+            { time: '10', todayNumber: 350, income: 5271 },
+            { time: '11', todayNumber: 350, income: 5271 },
+            { time: '12', todayNumber: 350, income: 5271 },
+            { time: '13', todayNumber: 1350, income: 5271 },
+            { time: '14', todayNumber: 150, income: 3710 }
         ];
-        
+       var platNewUser = [ 
+            { time: '1', age: 21, gender: 'male' },
+            { time: '2', age: 21, gender: 'male' },
+            { time: '3', age: 21, gender: 'male' }
+        ];
+     
+*/
         // 定义度量
         const cols = {
-            user: { alias: 'New user of this day' },
-            day: { alias: '游戏种类' }
+            todayNumber: { alias: 'New user of this day' },
+            time: { alias: 'New User Today' }
         };
 
-        var platNewUser = [ 
-            { key: '1', age: 21, gender: 'male' },
-            { key: '2', age: 21, gender: 'male' },
-            { key: '3', age: 21, gender: 'male' }
-        ];
+ 
 
     return (
       <Content style={{ margin: '0 16px' }}>
@@ -53,36 +92,42 @@ class NFDailyNewUser extends React.Component {
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
             </Breadcrumb>
 
-                <DatePicker onChange={onChange}/>
+            <DatePicker default={moment()} onChange={onChange}/>
+            { totalData && 
+                <Chart width={900} height={400} data={totalData} scale={cols}>
+                    <Axis name="time" />
+                    <Axis name="todayNumber"/>
+                    <Tooltip />
+                    <Geom type="interval" position="time*todayNumber" color="time" />
+                </Chart>
+            }
 
-            <Chart width={900} height={400} data={data} scale={cols}>
-                <Axis name="day" />
-                <Axis name="user" />
-                <Tooltip />
-                <Geom type="interval" position="day*user" color="user" />
-            </Chart>
+            { platNewUser &&
+                Object.keys(platNewUser).map(function (key) {
+                    var itemData = platNewUser[key];
+                                
+                        itemData.map((keyValue) => {
+                        return <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+                        { 
+                        <div>
 
-            <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
-            {
-
-                platNewUser.map((keyValue) => {
-                return <div>
-
-                    <Breadcrumb.Item>{keyValue.key}</Breadcrumb.Item>
-
-                    <Chart height={320} width={900} data={data} scale={cols}>
-                    <Legend />
-                    <Axis name="day" />
-                    <Axis name="user" label={{formatter: val => `${val}°C`}}/>
-                    <Tooltip crosshairs={{type : "y"}}/>
-                    <Geom type="line" position="day*user" size={2} color={'city'} />
-                    <Geom type='point' position="day*user" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
-                    </Chart>
-                    </div>
+                            <Breadcrumb.Item>{keyValue.time}</Breadcrumb.Item>
+    
+                            <Chart height={320} width={900} data={keyValue} scale={cols}>
+                            <Legend />
+                            <Axis name="time" />
+                            <Axis name="todayNumber" label={{formatter: val => `${val}Users`}}/>
+                            <Tooltip crosshairs={{type : "y"}}/>
+                            <Geom type="line" position="time*todayNumber" size={2} color={'city'} />
+                            <Geom type='point' position="time*todayNumber" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
+                            </Chart>
+                        </div>
+                        }
+                    </div>  
+                    });
                 })
             }
-            </div>   
-
+                
           </Content>
     );
   }

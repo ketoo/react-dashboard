@@ -5,7 +5,7 @@ import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
 
 import NFMenuModel from '../Models/NFMenuModel';
-import {queryDailyNewUser} from '../Services/NFBusinessAPI';
+import {queryDailyNewUser, queryCurrentDailyNewUser} from '../Services/NFBusinessAPI';
 
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -22,12 +22,20 @@ class NFSiderMenu extends React.Component {
 
       @action
       handleClick = (e) => {
-        console.log('click ', e.key);
+        //console.log('click ', e.key);
         
         window.store.setContentType(e.key);
         if (e.key == 1)
         {
-          queryDailyNewUser("2018::03::10");
+          queryCurrentDailyNewUser();
+        }
+        if (e.key == 2)
+        {
+          //queryCurrentDailyNewUser();
+        }
+        if (e.key == 3)
+        {
+          //queryCurrentDailyNewUser();
         }
       }
 
@@ -45,8 +53,6 @@ class NFSiderMenu extends React.Component {
           defaultSelectedKeys={['1']} 
           mode="inline"
           >
-
-            
 
             <Menu.Item key="100">
               <Icon type="pie-chart" />

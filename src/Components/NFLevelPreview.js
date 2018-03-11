@@ -50,7 +50,7 @@ class NFLevelPreview extends React.Component {
                     <Chart height={320} width={900} data={data} scale={cols}>
                         <Legend />
                         <Axis name="day" />
-                        <Axis name="user" label={{formatter: val => `${val}°C`}}/>
+                        <Axis name="user" label={{formatter: val => `Level:${val}`}}/>
                         <Tooltip crosshairs={{type : "y"}}/>
                         <Geom type="line" position="day*user" size={2} color={'city'} />
                         <Geom type='point' position="day*user" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />

@@ -8,15 +8,19 @@ import { Chart, Geom, Axis, Tooltip, Legend, Coord } from 'bizcharts';
 import { DatePicker } from 'antd';
 import { View , DataSet} from '@antv/data-set';
 
+import {queryDailyNewUser} from '../Services/NFBusinessAPI';
+
 const { Content } = Layout;
 
 class NFDailyActiveUser extends React.Component {
     
-
   render() {
 
     function onChange(date, dateString) {
         console.log(date, dateString);
+
+        queryDailyNewUser(dateString);
+
       }
 
     // 数据源
@@ -36,14 +40,14 @@ class NFDailyActiveUser extends React.Component {
         { day: '13', user: 1350, income: 5271 },
         { day: '14', user: 150, income: 3710 }
     ];
-    
+
     // 定义度量
     const cols = {
         user: { alias: '销售量' },
         day: { alias: '游戏种类' }
     };
 
-        var platNewUser = ['1', '2', '3'];
+    var platNewUser = ['1', '2', '3'];
 
     return (
       <Content style={{ margin: '0 16px' }}>
@@ -51,8 +55,8 @@ class NFDailyActiveUser extends React.Component {
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
             </Breadcrumb>
 
-                <DatePicker onChange={onChange}/>
-           
+            <DatePicker onChange={onChange}/>
+
            <Chart width={900} height={400} data={data} scale={cols}>
                 <Axis name="day" />
                 <Axis name="user" />
@@ -62,7 +66,6 @@ class NFDailyActiveUser extends React.Component {
 
             <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
             {
-
                 platNewUser.map(function (keyValue) {
                 return <div>
 
