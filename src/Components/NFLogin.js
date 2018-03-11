@@ -27,9 +27,8 @@ class NFLoginForm extends React.Component {
     render() {
       const { getFieldDecorator } = this.props.form;
       return (
-        <div 
-          <Image source={require('../public/logo.gif')}/>
-        </div>
+        <div><img src="../public/logo.gif" alt="" /></div>
+        
         <div className="all_form">
           <Form onSubmit={this.handleSubmit} className="login-form">
             <FormItem>
