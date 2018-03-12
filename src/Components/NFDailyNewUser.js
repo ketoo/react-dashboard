@@ -83,7 +83,7 @@ class NFDailyNewUser extends React.Component {
 */
         // 定义度量
         const cols = {
-            todayNumber: { alias: 'New users' },
+            todayNumber: { alias: '新用户 New users' },
             time: { alias: 'New User Today' }
         };
 
@@ -92,7 +92,7 @@ class NFDailyNewUser extends React.Component {
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Overview</Breadcrumb.Item>
+                <Breadcrumb.Item>新增用户总览 Overview</Breadcrumb.Item>
                 <DatePicker className="login-form-forgot" default={moment()} value={moment()} onChange={onChange}/>
             </Breadcrumb>
 
@@ -111,7 +111,7 @@ class NFDailyNewUser extends React.Component {
                         { 
                         <div>
                             <Breadcrumb style={{ margin: '16px 0' }}>
-                                <Breadcrumb.Item>{"plat:" + key}</Breadcrumb.Item>
+                                <Breadcrumb.Item>{"渠道 plat: " + key}</Breadcrumb.Item>
                             </Breadcrumb>
 
                             <Chart height={320} width={900} data={platNewUser[key]} scale={cols}>

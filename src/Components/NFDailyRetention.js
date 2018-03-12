@@ -83,7 +83,7 @@ class NFDailyRetention extends React.Component {
 */
         // 定义度量
         const cols = {
-            rate: { alias: 'Ratio:' },
+            rate: { alias: '留存率 Ratio' },
             day: { alias: 'New User Today' }
         };
 
@@ -92,7 +92,7 @@ class NFDailyRetention extends React.Component {
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Overview</Breadcrumb.Item>
+                <Breadcrumb.Item>留存总览 Overview</Breadcrumb.Item>
                 <DatePicker className="login-form-forgot" default={moment()} value={moment()} onChange={onChange}/>
             </Breadcrumb>
 
@@ -111,7 +111,7 @@ class NFDailyRetention extends React.Component {
                         { 
                         <div>
                             <Breadcrumb style={{ margin: '16px 0' }}>
-                                <Breadcrumb.Item>{"plat:" + key}</Breadcrumb.Item>
+                                <Breadcrumb.Item>{"渠道 plat:" + key}</Breadcrumb.Item>
                             </Breadcrumb>
 
                             <Chart height={320} width={900} data={platNewUser[key]} scale={cols}>

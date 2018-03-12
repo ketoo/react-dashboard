@@ -56,36 +56,35 @@ class NFSiderMenu extends React.Component {
 
             <Menu.Item key="0">
               <Icon type="desktop" />
-              <span>Data Overview</span>
+              <span>实时总览 Data Overview</span>
             </Menu.Item>
             <SubMenu
               key="sub1"
-              title={<span><Icon type="user" /><span>Overview</span></span>}
+              title={<span><Icon type="user" /><span>总览 Overview</span></span>}
             >
-              <Menu.Item key="1">Daily New Users</Menu.Item>
-              <Menu.Item key="2">Daily Active Users </Menu.Item>
-              <Menu.Item key="3">Retention Ratio</Menu.Item>
-              <Menu.Item key="4">Level Preview</Menu.Item>
+              <Menu.Item key="1">新增 DNW </Menu.Item>
+              <Menu.Item key="2">日活 DAU </Menu.Item>
+              <Menu.Item key="3">留存 DR </Menu.Item>
+              <Menu.Item key="4">等级分布 LP </Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub2"
-              title={<span><Icon type="team" /><span>Economic</span></span>}
+              title={<span><Icon type="team" /><span>经济 Economic</span></span>}
             >
-              <Menu.Item key="11">Item statistics</Menu.Item>
-              <Menu.Item key="12">Payment statistics</Menu.Item>
+              <Menu.Item key="11">道具 Items</Menu.Item>
+              <Menu.Item key="12">支付 Payment</Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub3"
-              title={<span><Icon type="team" /><span>Production</span></span>}
+              title={<span><Icon type="team" /><span>产品 Production</span></span>}
             >
-              <Menu.Item key="21">Task statistics</Menu.Item>
-              <Menu.Item key="22">Blocking statistics</Menu.Item>
-              <Menu.Item key="23">Round statistics</Menu.Item>
+              <Menu.Item key="21">任务 Tasks</Menu.Item>
+              <Menu.Item key="22">流失 Blocking</Menu.Item>
+              <Menu.Item key="23">副本 Rounds</Menu.Item>
+              <Menu.Item key="24">函数 API</Menu.Item>
+              <Menu.Item key="25">活动 Activity</Menu.Item>
+              <Menu.Item key="26">行为 Behaviour</Menu.Item>
             </SubMenu>
-            <Menu.Item key="900">
-              <Icon type="file" />
-              <span>File</span>
-            </Menu.Item>
           </Menu>
         </Sider>
     );

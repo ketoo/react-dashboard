@@ -88,17 +88,17 @@ class NFAnalysisOperatePlatform extends React.Component {
            <div style={{ background: '#ECECEC', padding: '30px' }}>
                 <Row gutter={16}>
                 <Col span={8}>
-                    <Card title="Require analysis" bordered={false}>
+                    <Card title="执行分析 Analyst" bordered={false}>
                         Card content
                     </Card>
                 </Col>
                 <Col span={8}>
-                    <Card title="Permission management" bordered={false}>
+                    <Card title="权限管理 Permission management" bordered={false}>
                         Card content
                     </Card>
                 </Col>
                 <Col span={8}>
-                    <Card title="User's data management" bordered={false}>
+                    <Card title="用户数据管理 User's data management" bordered={false}>
                         Card content
                     </Card>
                 </Col>
@@ -107,7 +107,7 @@ class NFAnalysisOperatePlatform extends React.Component {
            
              <div>
                  <Breadcrumb style={{ margin: '16px 0' }}>
-                     <Breadcrumb.Item>Workload  information</Breadcrumb.Item>
+                     <Breadcrumb.Item>负载信息 Workload information</Breadcrumb.Item>
                  </Breadcrumb>
              </div>
 
@@ -122,7 +122,7 @@ class NFAnalysisOperatePlatform extends React.Component {
             {
                     <div>
                         <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Realtime user information</Breadcrumb.Item>
+                            <Breadcrumb.Item>实时用户在线信息 Realtime user information</Breadcrumb.Item>
                         </Breadcrumb>
                     </div>
                 }

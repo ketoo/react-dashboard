@@ -18,37 +18,37 @@ class NFHeaderMenu extends React.Component {
 
       @action
       handleClick = (e) => {
+        
 
-        window.store.setLoginState(false);
-
-        console.log('click ', e);
         this.setState({
           current: e.key,
         });
+
+        if (e.key == "setting_3")
+        {
+          window.store.clearAllData();
+        }
       }
 
   render() {
     return (
         <Menu
+        className="login-form-forgot"
         onClick={this.handleClick}
         selectedKeys={[this.state.current]}
         mode="horizontal"
       >
         <Menu.Item key="mail">
-          <Icon type="mail" />Navigation One
+          <Icon type="mail" />Email
         </Menu.Item>
-        <Menu.Item key="app" disabled>
-          <Icon type="appstore" />Navigation Two
+        <Menu.Item key="add">
+          <Icon type="user-add" />Add user
         </Menu.Item>
-        <SubMenu title={<span><Icon type="setting" />Navigation Three - Submenu</span>}>
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
+        <SubMenu title={<span><Icon type="user" />{this.props.store.userID}</span>}>
+            <Menu.Item key="setting_1">Profiles</Menu.Item>
+            <Menu.Item key="setting_2">Setting</Menu.Item>
+            <Menu.Item key="setting_3">Log out</Menu.Item>
         </SubMenu>
-        <Menu.Item key="alipay">
-          <a href="https://ant.design" target="_blank" rel="noopener noreferrer">Navigation Four - Link</a>
-        </Menu.Item>
       </Menu>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.min.css';
-import { Layout, Menu, Breadcrumb, BackTop, Form, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, BackTop, Form, Icon, Spin } from 'antd';
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
 import NFFooter from './NFFooter'
@@ -37,7 +37,11 @@ class NFLayout extends React.Component {
             { !this.props.store.isLoggedIn && 
               <NFLogin/>
             }
-            
+            {this.props.store.isLoading && 
+              <div className="SpinCenter">
+                <Spin tip="Loading..."/>
+            </div>
+            }
           </Content>
           <NFFooter store={this.props.store}/>
         </Layout>

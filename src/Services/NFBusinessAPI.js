@@ -14,7 +14,7 @@ export function queryCurrentDailyNewUser() {
 
 export function queryDailyNewUser(time) {
 
-    console.log("queryDailyNewUser", time);
+    window.store.isLoading = true;
 
     var url = window.store.host + "/analysis/newuser"
     axios.post(url, {
@@ -31,10 +31,13 @@ export function queryDailyNewUser(time) {
         {response.data.code === 0 && 
             window.store.setNewUserData(response.data);
         }
+        window.store.isLoading = false;
   })
   .catch(function (error) {
     console.log(error);
+    window.store.isLoading = false;
   });
+
 }
 
 export function queryCurrentDailyAvtivelyUser() {
@@ -49,6 +52,8 @@ export function queryCurrentDailyAvtivelyUser() {
 export function queryDailyAvtivelyUser(time) {
 
     console.log("queryDailyAvtivelyUser", time);
+
+    window.store.isLoading = true;
 
     var url = window.store.host + "/analysis/dailyactivelyuser"
     axios.post(url, {
@@ -65,9 +70,11 @@ export function queryDailyAvtivelyUser(time) {
         {response.data.code === 0 && 
             window.store.setDailyActivelyUserData(response.data);
         }
+        window.store.isLoading = false;
   })
   .catch(function (error) {
     console.log(error);
+    window.store.isLoading = false;
   });
 }
 
@@ -85,6 +92,8 @@ export function queryRetention(time) {
 
     console.log("queryRetention", time);
 
+    window.store.isLoading = true;
+
     var url = window.store.host + "/analysis/retention"
     axios.post(url, {
         date: time,
@@ -100,8 +109,11 @@ export function queryRetention(time) {
         {response.data.code === 0 && 
             window.store.setDailyRetentionData(response.data);
         }
+
+      window.store.isLoading = false;
   })
   .catch(function (error) {
     console.log(error);
+    window.store.isLoading = false;
   });
 }

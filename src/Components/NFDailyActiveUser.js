@@ -23,10 +23,16 @@ class NFDailyActivelyUser extends React.Component {
 
   render() {
 
+    var pickerTime = moment();
+
     function onChange(date, dateString) {
         console.log(date, dateString);
+
+        
         if (dateString != null && dateString != "")
         {
+            pickerTime = date;
+            
             queryDailyAvtivelyUser(dateString);
         }
       }
@@ -83,7 +89,7 @@ class NFDailyActivelyUser extends React.Component {
 */
         // 定义度量
         const cols = {
-            todayNumber: { alias: 'Active user' },
+            todayNumber: { alias: '活跃用户 Actively user' },
             time: { alias: 'New User Today' }
         };
 
@@ -92,8 +98,8 @@ class NFDailyActivelyUser extends React.Component {
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Overview</Breadcrumb.Item>
-                <DatePicker className="login-form-forgot" default={moment()} value={moment()} onChange={onChange}/>
+                <Breadcrumb.Item>日活跃总览 Overview</Breadcrumb.Item>
+                <DatePicker className="login-form-forgot" value={pickerTime} onChange={onChange}/>
             </Breadcrumb>
 
             { totalData && 
@@ -111,7 +117,7 @@ class NFDailyActivelyUser extends React.Component {
                         { 
                         <div>
                             <Breadcrumb style={{ margin: '16px 0' }}>
-                                <Breadcrumb.Item>{"plat:" + key}</Breadcrumb.Item>
+                                <Breadcrumb.Item>{"渠道 plat:" + key}</Breadcrumb.Item>
                             </Breadcrumb>
 
                             <Chart height={320} width={900} data={platNewUser[key]} scale={cols}>
