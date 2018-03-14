@@ -8,12 +8,30 @@ import { Chart, Geom, Axis, Tooltip, Legend, Coord } from 'bizcharts';
 import { DatePicker } from 'antd';
 import { View , DataSet} from '@antv/data-set';
 
+import { Button, Dropdown, Icon, message } from 'antd';
+import moment from 'moment';
+
 const { Content } = Layout;
 
 class NFLevelPreview extends React.Component {
     
 
   render() {
+    function onChange(date, dateString) {
+        console.log(date, dateString);
+        if (dateString != null && dateString != "")
+        {
+        }
+      }
+
+      function handleButtonClick(e) {
+        message.info('Click on left button.');
+        console.log('click left button', e);
+      }
+      function handleMenuClick(e) {
+        message.info('Click on menu item.');
+        console.log('click', e);
+      }
 
     // 数据源
     const data = [
@@ -41,10 +59,27 @@ class NFLevelPreview extends React.Component {
 
         var platNewUser = ['1', '2', '3'];
 
+        const menu = (
+            <Menu onClick={handleMenuClick}>
+              <Menu.Item key="1">1st menu item</Menu.Item>
+              <Menu.Item key="2">2nd menu item</Menu.Item>
+              <Menu.Item key="3">3rd item</Menu.Item>
+            </Menu>
+          );
+ 
+
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
+
+                <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
+                这里选择要查询的区服
+                </Dropdown.Button>
+                <DatePicker default={moment()} value={moment()} onChange={onChange}/>
+
+                <Button  type="primary">查询</Button>
+
             </Breadcrumb>
 
                     <Chart height={320} width={900} data={data} scale={cols}>

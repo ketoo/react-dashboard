@@ -6,6 +6,8 @@ class NFRootModel {
   @observable host_dev = "http://127.0.0.1:5000";
   @observable host_pro = "http://leetframe.com:5000";
 
+  @observable zone;
+
   @observable isLoggedIn = false;
   @observable userID;
   @observable jwt;

@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NFRootModel from '../Models/NFRootModel';
 
+export function queryCurrentZone() {
+
+
+}
+
 export function queryCurrentDailyNewUser() {
 
     var myDate = new Date();

@@ -7,11 +7,14 @@ import { message, Button } from 'antd'
 
 export function login(userName, password) {
 
-  window.store.isLoading = true;
+    window.store.isLoading = true;
 
     if (process.env.NODE_ENV === "development")
     {
       window.store.setProdEvn(false);
+
+      window.store.setLoginState(true);
+      window.store.isLoading = false;
     }
     else
     {

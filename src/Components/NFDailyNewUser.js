@@ -5,6 +5,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { Calendar, Badge } from 'antd';
 import { BackTop } from 'antd';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord } from 'bizcharts';
+import { Button, Dropdown, Icon, message } from 'antd';
 
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
@@ -22,6 +23,14 @@ class NFDailyNewUser extends React.Component {
     
 
   render() {
+    function handleButtonClick(e) {
+        message.info('Click on left button.');
+        console.log('click left button', e);
+      }
+      function handleMenuClick(e) {
+        message.info('Click on menu item.');
+        console.log('click', e);
+      }
 
     function onChange(date, dateString) {
         console.log(date, dateString);
@@ -86,14 +95,27 @@ class NFDailyNewUser extends React.Component {
             todayNumber: { alias: '新用户 New users' },
             time: { alias: 'New User Today' }
         };
-
+        const menu = (
+            <Menu onClick={handleMenuClick}>
+              <Menu.Item key="1">1st menu item</Menu.Item>
+              <Menu.Item key="2">2nd menu item</Menu.Item>
+              <Menu.Item key="3">3rd item</Menu.Item>
+            </Menu>
+          );
  
 
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>新增用户总览 Overview</Breadcrumb.Item>
-                <DatePicker className="login-form-forgot" default={moment()} value={moment()} onChange={onChange}/>
+
+                <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
+                这里选择要查询的区服
+                </Dropdown.Button>
+                <DatePicker default={moment()} value={moment()} onChange={onChange}/>
+
+                <Button  type="primary">查询</Button>
+   
             </Breadcrumb>
 
             { totalData && 

@@ -7,11 +7,38 @@ import { BackTop } from 'antd';
 import { Card, Col, Row } from 'antd';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord } from 'bizcharts';
 
+import { DatePicker } from 'antd';
+import { Button, Dropdown, Icon, message } from 'antd';
+
+import moment from 'moment';
 const { Content } = Layout;
 
 class NFAnalysisOperatePlatform extends React.Component {
 
   render() {
+
+    function handleButtonClick(e) {
+        message.info('Click on left button.');
+        console.log('click left button', e);
+      }
+      function handleMenuClick(e) {
+        message.info('Click on menu item.');
+        console.log('click', e);
+      }
+
+
+      function onChange(date, dateString) {
+        console.log(date, dateString);
+
+        
+        if (dateString != null && dateString != "")
+        {
+            pickerTime = date;
+            
+        }
+      }
+
+      var pickerTime = moment();
            // 数据源
         const data = [
             { time: '0', todayNumber: 275 },
@@ -82,6 +109,14 @@ class NFAnalysisOperatePlatform extends React.Component {
         };
        
 
+        const menu = (
+            <Menu onClick={handleMenuClick}>
+              <Menu.Item key="1">1st menu item</Menu.Item>
+              <Menu.Item key="2">2nd menu item</Menu.Item>
+              <Menu.Item key="3">3rd item</Menu.Item>
+            </Menu>
+          );
+ 
 
     return (
       <Content style={{ margin: '0 16px' }}>
@@ -108,6 +143,16 @@ class NFAnalysisOperatePlatform extends React.Component {
              <div>
                  <Breadcrumb style={{ margin: '16px 0' }}>
                      <Breadcrumb.Item>负载信息 Workload information</Breadcrumb.Item>
+
+
+                            <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
+                            这里选择要查询的区服
+                            </Dropdown.Button>
+                            <DatePicker default={moment()} value={moment()} onChange={onChange}/>
+
+                            <Button  type="primary">查询</Button>
+            
+
                  </Breadcrumb>
              </div>
 
@@ -123,6 +168,7 @@ class NFAnalysisOperatePlatform extends React.Component {
                     <div>
                         <Breadcrumb style={{ margin: '16px 0' }}>
                             <Breadcrumb.Item>实时用户在线信息 Realtime user information</Breadcrumb.Item>
+
                         </Breadcrumb>
                     </div>
                 }
