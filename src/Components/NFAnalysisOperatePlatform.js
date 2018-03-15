@@ -33,12 +33,9 @@ class NFAnalysisOperatePlatform extends React.Component {
         
         if (dateString != null && dateString != "")
         {
-            pickerTime = date;
-            
+            //pickerTime = date;
         }
       }
-
-      var pickerTime = moment();
            // 数据源
         const data = [
             { time: '0', todayNumber: 275 },
@@ -148,7 +145,7 @@ class NFAnalysisOperatePlatform extends React.Component {
                             <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
                             这里选择要查询的区服
                             </Dropdown.Button>
-                            <DatePicker default={moment()} value={moment()} onChange={onChange}/>
+                            <DatePicker onChange={onChange}/>
 
                             <Button  type="primary">查询</Button>
             

@@ -5,6 +5,47 @@ import NFRootModel from '../Models/NFRootModel';
 
 export function queryCurrentZone() {
 
+    var url = window.store.host + "/analysis/zone"
+    axios.post(url, {
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function (response) {
+        console.log("queryCurrentZone", response.data);
+        
+        {response.data.code === 0 && 
+            window.store.setZone(response.data);
+            console.log("setZone", response.data)
+        }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+}
+
+export function queryCurrentPlat() {
+    var url = window.store.host + "/analysis/plat"
+    axios.post(url, {
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function (response) {
+        console.log("queryCurrentPlat", response.data);
+        
+        {response.data.code === 0 && 
+            window.store.setPlat(response.data);
+            console.log("setPlat", response.data)
+        }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
 
 }
 

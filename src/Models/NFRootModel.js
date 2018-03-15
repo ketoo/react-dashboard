@@ -6,7 +6,6 @@ class NFRootModel {
   @observable host_dev = "http://127.0.0.1:5000";
   @observable host_pro = "http://leetframe.com:5000";
 
-  @observable zone;
 
   @observable isLoggedIn = false;
   @observable userID;
@@ -14,9 +13,31 @@ class NFRootModel {
   @observable contentType = 0;
   @observable isLoading = false;
 
+  @observable curplat;
+  @observable curzone;
+  @observable curdate;
+
+  @observable zone;
+  @observable plat;
+
   @observable newUserData;
   @observable dailyActivelyUserData;
   @observable dailyRetentionData;
+
+
+  @action
+  clearAllData() {
+    this.isLoggedIn = false;
+    this.userID = "";
+    this.jwt = "";
+    this.contentType = 0;
+    this.isLoading = false;
+  
+    this.newUserData = null;
+    this.dailyActivelyUserData = null;
+    this.dailyRetentionData = null;
+  }
+
 
   @computed
   get loginState() {
@@ -67,19 +88,18 @@ class NFRootModel {
   setDailyRetentionData(data) {
     this.dailyRetentionData =data;
   }
+
+
   @action
-  clearAllData() {
-    this.isLoggedIn = false;
-    this.userID = "";
-    this.jwt = "";
-    this.contentType = 0;
-    this.isLoading = false;
-  
-    this.newUserData = null;
-    this.dailyActivelyUserData = null;
-    this.dailyRetentionData = null;
+  setPlat(data) {
+    this.plat =data;
   }
 
+
+  @action
+  setZone(data) {
+    this.zone =data;
+  }
   @action
   setProdEvn(b) {
     if (b)

@@ -117,7 +117,7 @@ class NFDailyRetention extends React.Component {
                 <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
                 这里选择要查询的区服
                 </Dropdown.Button>
-                <DatePicker default={moment()} value={moment()} onChange={onChange}/>
+                <DatePicker  onChange={onChange}/>
 
                 <Button  type="primary">查询</Button>
 

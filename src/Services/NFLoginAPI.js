@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NFRootModel from '../Models/NFRootModel';
-import {queryDailyNewUser, queryCurrentDailyNewUser} from '../Services/NFBusinessAPI';
+import {queryDailyNewUser, queryCurrentDailyNewUser, queryCurrentZone, queryCurrentPlat} from '../Services/NFBusinessAPI';
 import { message, Button } from 'antd'
 
 export function login(userName, password) {
@@ -25,6 +25,9 @@ export function login(userName, password) {
     console.log(userName, password);
     console.log("url", url);
     console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+
+    queryCurrentZone();
+    queryCurrentPlat();
 
     axios.post(url, {
       user: userName,
