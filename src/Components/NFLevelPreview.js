@@ -11,26 +11,41 @@ import { View , DataSet} from '@antv/data-set';
 import { Button, Dropdown, Icon, message } from 'antd';
 import moment from 'moment';
 
+import {queryCurrentLevel, queryLevel} from '../Services/NFBusinessAPI';
+
 const { Content } = Layout;
 
 class NFLevelPreview extends React.Component {
     
 
   render() {
+
+    var curZone;
+    var curDate;
+
+    function queryClick() {
+        if (curZone == null || curDate == null)
+        {
+            message.error('Please input zone and date');
+            return;
+        }
+        queryLevel(curDate, "0");
+        queryLevel(curDate, curZone);
+
+    }
+
+    function handleMenuClick(e) {
+        //message.info('Click on menu item.');
+        curZone = e;
+        console.log('click', e);
+    }
+
     function onChange(date, dateString) {
         console.log(date, dateString);
         if (dateString != null && dateString != "")
         {
+            curDate = dateString;
         }
-      }
-
-      function handleButtonClick(e) {
-        message.info('Click on left button.');
-        console.log('click left button', e);
-      }
-      function handleMenuClick(e) {
-        message.info('Click on menu item.');
-        console.log('click', e);
       }
 
     // 数据源
@@ -61,9 +76,11 @@ class NFLevelPreview extends React.Component {
 
         const menu = (
             <Menu onClick={handleMenuClick}>
-              <Menu.Item key="1">1st menu item</Menu.Item>
-              <Menu.Item key="2">2nd menu item</Menu.Item>
-              <Menu.Item key="3">3rd item</Menu.Item>
+              {this.props.store.zone &&
+                this.props.store.zone.map((key) => (  
+                    <Menu.Item key={key}>{key}</Menu.Item>
+                )) 
+            }
             </Menu>
           );
  
@@ -73,12 +90,15 @@ class NFLevelPreview extends React.Component {
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
 
-                <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
-                这里选择要查询的区服
-                </Dropdown.Button>
+                <Dropdown overlay={menu}>
+                    <Button style={{ marginLeft: 8 }}>
+                        这里选择要查询的区服 <Icon type="down" />
+                    </Button>
+                </Dropdown>
+
                 <DatePicker  onChange={onChange}/>
 
-                <Button  type="primary">查询</Button>
+                <Button  type="primary" onClick={queryClick}>查询</Button>
 
             </Breadcrumb>
 

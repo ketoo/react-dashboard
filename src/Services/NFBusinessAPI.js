@@ -13,11 +13,9 @@ export function queryCurrentZone() {
         }
     })
     .then(function (response) {
-        console.log("queryCurrentZone", response.data);
-        
         {response.data.code === 0 && 
-            window.store.setZone(response.data);
-            console.log("setZone", response.data)
+            window.store.setZone(response.data.data);
+            console.log("setZone", response.data.data)
         }
   })
   .catch(function (error) {
@@ -35,11 +33,9 @@ export function queryCurrentPlat() {
         }
     })
     .then(function (response) {
-        console.log("queryCurrentPlat", response.data);
-        
         {response.data.code === 0 && 
-            window.store.setPlat(response.data);
-            console.log("setPlat", response.data)
+            window.store.setPlat(response.data.data);
+            console.log("setPlat", response.data.data)
         }
   })
   .catch(function (error) {
@@ -55,17 +51,18 @@ export function queryCurrentDailyNewUser() {
     var month = myDate.getMonth() + 1;
     var dateStr = myDate.getFullYear() + "-" + month + "-" + myDate.getDate();
 
-    queryDailyNewUser(dateStr);
+    queryDailyNewUser(dateStr, "0");
 }
 
-export function queryDailyNewUser(time) {
+export function queryDailyNewUser(time, zoneID) {
 
     window.store.isLoading = true;
 
     var url = window.store.host + "/analysis/newuser"
     axios.post(url, {
         date: time,
-        day: 15
+        day: 15,
+        zone: zoneID
     }, {
         headers: {
             'Content-Type': 'application/json',
@@ -92,10 +89,10 @@ export function queryCurrentDailyAvtivelyUser() {
     var month = myDate.getMonth() + 1;
     var dateStr = myDate.getFullYear() + "-" + month + "-" + myDate.getDate();
 
-    queryDailyAvtivelyUser(dateStr);
+    queryDailyAvtivelyUser(dateStr, "0");
 }
 
-export function queryDailyAvtivelyUser(time) {
+export function queryDailyAvtivelyUser(time, zoneID) {
 
     console.log("queryDailyAvtivelyUser", time);
 
@@ -104,7 +101,8 @@ export function queryDailyAvtivelyUser(time) {
     var url = window.store.host + "/analysis/dailyactivelyuser"
     axios.post(url, {
         date: time,
-        day: 15
+        day: 15,
+        zone: zoneID
     }, {
         headers: {
             'Content-Type': 'application/json',
@@ -131,10 +129,10 @@ export function queryCurrentRetention() {
     var day = myDate.getDate() - 1;
     var dateStr = myDate.getFullYear() + "-" + month + "-" + day;
 
-    queryRetention(dateStr);
+    queryRetention(dateStr, "0");
 }
 
-export function queryRetention(time) {
+export function queryRetention(time, zoneID) {
 
     console.log("queryRetention", time);
 
@@ -143,7 +141,8 @@ export function queryRetention(time) {
     var url = window.store.host + "/analysis/retention"
     axios.post(url, {
         date: time,
-        day: 15
+        day: 15,
+        zone: zoneID
     }, {
         headers: {
             'Content-Type': 'application/json',
@@ -154,6 +153,87 @@ export function queryRetention(time) {
         
         {response.data.code === 0 && 
             window.store.setDailyRetentionData(response.data);
+        }
+
+      window.store.isLoading = false;
+  })
+  .catch(function (error) {
+    console.log(error);
+    window.store.isLoading = false;
+  });
+}
+
+
+export function queryCurrentLevel() {
+    var myDate = new Date();
+    var month = myDate.getMonth() + 1;
+    var day = myDate.getDate() - 1;
+    var dateStr = myDate.getFullYear() + "-" + month + "-" + day;
+
+    queryLevel(dateStr, "0");
+}
+
+export function queryLevel(time, zoneID) {
+
+    console.log("queryLevel", time);
+
+    window.store.isLoading = true;
+
+    var url = window.store.host + "/analysis/leveldata"
+    axios.post(url, {
+        date: time,
+        day: 15,
+        zone: zoneID
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function (response) {
+        console.log("retention", response.data);
+        
+        {response.data.code === 0 && 
+            window.store.setLevelData(response.data);
+        }
+
+      window.store.isLoading = false;
+  })
+  .catch(function (error) {
+    console.log(error);
+    window.store.isLoading = false;
+  });
+}
+
+export function queryCurrentOnlineData() {
+    var myDate = new Date();
+    var month = myDate.getMonth() + 1;
+    var day = myDate.getDate() - 1;
+    var dateStr = myDate.getFullYear() + "-" + month + "-" + day;
+
+    queryOnlineData(dateStr, "0");
+}
+
+export function queryOnlineData(time, zoneID) {
+
+    console.log("queryLevel", time);
+
+    window.store.isLoading = true;
+
+    var url = window.store.host + "/analysis/onlinedata"
+    axios.post(url, {
+        date: time,
+        day: 15,
+        zone: zoneID
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function (response) {
+        console.log("retention", response.data);
+        
+        {response.data.code === 0 && 
+            window.store.setOnlineData(response.data);
         }
 
       window.store.isLoading = false;

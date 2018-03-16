@@ -24,25 +24,30 @@ class NFDailyActivelyUser extends React.Component {
     
 
   render() {
+    var curZone;
+    var curDate;
 
+    function queryClick() {
 
-    function handleButtonClick(e) {
-        message.info('Click on left button.');
-        console.log('click left button', e);
-      }
-      function handleMenuClick(e) {
-        message.info('Click on menu item.');
-        console.log('click', e);
-      }
+        if (curZone == null || curDate == null)
+        {
+            message.error('Please input zone and date');
+            return;
+        }
 
+        queryDailyAvtivelyUser(curDate, "0");
+        queryDailyAvtivelyUser(curDate, curZone);
+    }
+
+    function handleMenuClick(e) {
+        //message.info('Click on menu item.');
+        curZone = e;
+    }
 
     function onChange(date, dateString) {
-        console.log(date, dateString);
-
-        
         if (dateString != null && dateString != "")
         {
-            queryDailyAvtivelyUser(dateString);
+            curDate = dateString;
         }
       }
 
@@ -104,9 +109,11 @@ class NFDailyActivelyUser extends React.Component {
 
         const menu = (
             <Menu onClick={handleMenuClick}>
-              <Menu.Item key="1">1st menu item</Menu.Item>
-              <Menu.Item key="2">2nd menu item</Menu.Item>
-              <Menu.Item key="3">3rd item</Menu.Item>
+            {this.props.store.zone &&
+                this.props.store.zone.map((key) => (  
+                    <Menu.Item key={key}>{key}</Menu.Item>
+                )) 
+            }
             </Menu>
           );
  
@@ -116,13 +123,15 @@ class NFDailyActivelyUser extends React.Component {
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>日活跃总览 Overview</Breadcrumb.Item>
                 
+                <Dropdown overlay={menu}>
+                    <Button style={{ marginLeft: 8 }}>
+                        这里选择要查询的区服 <Icon type="down" />
+                    </Button>
+                </Dropdown>
 
-                <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
-                这里选择要查询的区服
-                </Dropdown.Button>
                 <DatePicker onChange={onChange}/>
 
-                <Button  type="primary">查询</Button>
+                <Button  type="primary" onClick={queryClick}>查询</Button>
    
 
             </Breadcrumb>
@@ -142,7 +151,6 @@ class NFDailyActivelyUser extends React.Component {
                         { 
                         <div>
                             <Breadcrumb style={{ margin: '16px 0' }}>
-                                <Breadcrumb.Item>{"渠道 plat:" + key}</Breadcrumb.Item>
                             </Breadcrumb>
 
                             <Chart height={320} width={900} data={platNewUser[key]} scale={cols}>

@@ -13,17 +13,15 @@ class NFRootModel {
   @observable contentType = 0;
   @observable isLoading = false;
 
-  @observable curplat;
-  @observable curzone;
-  @observable curdate;
-
   @observable zone;
   @observable plat;
 
+  @observable onlineData;
   @observable newUserData;
   @observable dailyActivelyUserData;
   @observable dailyRetentionData;
-
+  @observable levelData;
+  
 
   @action
   clearAllData() {
@@ -37,6 +35,30 @@ class NFRootModel {
     this.dailyActivelyUserData = null;
     this.dailyRetentionData = null;
   }
+
+
+  @action
+  setPlat(data) {
+    this.plat =data;
+  }
+
+
+  @action
+  setZone(data) {
+    this.zone =data;
+  }
+  @action
+  setProdEvn(b) {
+    if (b)
+    {
+      this.host = this.host_pro;
+    }
+    else
+    {
+      this.host = this.host_dev;
+    }
+  }
+
 
 
   @computed
@@ -89,29 +111,15 @@ class NFRootModel {
     this.dailyRetentionData =data;
   }
 
-
   @action
-  setPlat(data) {
-    this.plat =data;
+  setLevelData(data) {
+    this.levelData =data;
   }
 
-
   @action
-  setZone(data) {
-    this.zone =data;
-  }
-  @action
-  setProdEvn(b) {
-    if (b)
-    {
-      this.host = this.host_pro;
-    }
-    else
-    {
-      this.host = this.host_dev;
-    }
+  setOnlineData(data) {
+    this.onlineData =data;
   }
 
 }
-
 export default NFRootModel;

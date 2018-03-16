@@ -23,20 +23,30 @@ class NFDailyNewUser extends React.Component {
     
 
   render() {
-    function handleButtonClick(e) {
-        message.info('Click on left button.');
-        console.log('click left button', e);
-      }
-      function handleMenuClick(e) {
-        message.info('Click on menu item.');
-        console.log('click', e);
-      }
+    var curZone;
+    var curDate;
+
+    function queryClick() {
+        if (curZone == null || curDate == null)
+        {
+            message.error('Please input zone and date');
+            return;
+        }
+
+        queryDailyNewUser(curDate, curZone);
+        queryDailyNewUser(curDate, "0");
+    }
+
+    function handleMenuClick(e) {
+        //message.info('Click on menu item.');
+        curZone = e;
+    }
 
     function onChange(date, dateString) {
         console.log(date, dateString);
         if (dateString != null && dateString != "")
         {
-            queryDailyNewUser(dateString);
+            curDate = dateString;
         }
       }
 
@@ -97,9 +107,11 @@ class NFDailyNewUser extends React.Component {
         };
         const menu = (
             <Menu onClick={handleMenuClick}>
-              <Menu.Item key="1">1st menu item</Menu.Item>
-              <Menu.Item key="2">2nd menu item</Menu.Item>
-              <Menu.Item key="3">3rd item</Menu.Item>
+            {this.props.store.zone &&
+                this.props.store.zone.map((key) => (  
+                    <Menu.Item key={key}>{key}</Menu.Item>
+                )) 
+            }
             </Menu>
           );
  
@@ -109,12 +121,15 @@ class NFDailyNewUser extends React.Component {
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>新增用户总览 Overview</Breadcrumb.Item>
 
-                <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
-                这里选择要查询的区服
-                </Dropdown.Button>
+                <Dropdown overlay={menu}>
+                    <Button style={{ marginLeft: 8 }}>
+                        这里选择要查询的区服 <Icon type="down" />
+                    </Button>
+                </Dropdown>
+
                 <DatePicker onChange={onChange}/>
 
-                <Button  type="primary">查询</Button>
+                <Button  type="primary" onClick={queryClick}>查询</Button>
    
             </Breadcrumb>
 
@@ -126,7 +141,27 @@ class NFDailyNewUser extends React.Component {
                     <Geom type="interval" position="time*todayNumber" color="todayNumber" />
                 </Chart>
             }
-            
+             { platNewUser &&
+                <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+                    { 
+                    <div>
+                        <Breadcrumb style={{ margin: '16px 0' }}>
+                        </Breadcrumb>
+
+                        <Chart height={320} width={900} data={platNewUser} scale={cols}>
+                        <Legend />
+                        <Axis name="time" />
+                        <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>
+                        <Tooltip crosshairs={{type : "y"}}/>
+                        <Geom type="line" position="time*todayNumber" size={2} color={'city'} />
+                        <Geom type='point' position="time*todayNumber" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
+                        </Chart>
+                    </div>
+                    }
+                </div> 
+            }
+
+            {/* hashmap<string, list<object>>
             { platNewUser &&
                 Object.keys(platNewUser).map((key) => (  
                     <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
@@ -149,6 +184,7 @@ class NFDailyNewUser extends React.Component {
                     </div> 
                   )) 
             }
+            */}
                 
           </Content>
     );

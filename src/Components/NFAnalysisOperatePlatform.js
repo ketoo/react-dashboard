@@ -3,6 +3,8 @@ import 'antd/dist/antd.min.css';
 import ReactDOM from 'react-dom';
 import { Layout, Menu, Breadcrumb } from 'antd';
 
+import { observable, computed, action } from "mobx";
+import { observer } from "mobx-react";
 import { BackTop } from 'antd';
 import { Card, Col, Row } from 'antd';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord } from 'bizcharts';
@@ -11,29 +13,40 @@ import { DatePicker } from 'antd';
 import { Button, Dropdown, Icon, message } from 'antd';
 
 import moment from 'moment';
+import {queryOnlineData} from '../Services/NFBusinessAPI';
+
 const { Content } = Layout;
 
+@observer
 class NFAnalysisOperatePlatform extends React.Component {
 
   render() {
 
-    function handleButtonClick(e) {
-        message.info('Click on left button.');
-        console.log('click left button', e);
-      }
-      function handleMenuClick(e) {
-        message.info('Click on menu item.');
-        console.log('click', e);
-      }
+    var curZone;
+    var curDate;
 
+  
+    function queryClick() {
+        if (curZone == null || curDate == null)
+        {
+            message.error('Please input zone and date');
+            return;
+        }
 
-      function onChange(date, dateString) {
-        console.log(date, dateString);
-
+        queryOnlineData(curDate, "0");
+        queryOnlineData(curDate, curZone);
         
+    }
+
+    function handleMenuClick(e) {   
+        curZone = e;
+        message.error({curZone});
+    }
+    
+      function onChange(date, dateString) {
         if (dateString != null && dateString != "")
         {
-            //pickerTime = date;
+            curDate = dateString;
         }
       }
            // 数据源
@@ -105,12 +118,15 @@ class NFAnalysisOperatePlatform extends React.Component {
             }
         };
        
+        console.log("this.props.store.zone", this.props.store.zone);
 
         const menu = (
             <Menu onClick={handleMenuClick}>
-              <Menu.Item key="1">1st menu item</Menu.Item>
-              <Menu.Item key="2">2nd menu item</Menu.Item>
-              <Menu.Item key="3">3rd item</Menu.Item>
+            {this.props.store.zone &&
+                this.props.store.zone.map((key) => (  
+                    <Menu.Item key={key}>{key}</Menu.Item>
+                )) 
+            }
             </Menu>
           );
  
@@ -141,13 +157,15 @@ class NFAnalysisOperatePlatform extends React.Component {
                  <Breadcrumb style={{ margin: '16px 0' }}>
                      <Breadcrumb.Item>负载信息 Workload information</Breadcrumb.Item>
 
+                     <Dropdown overlay={menu}>
+                        <Button style={{ marginLeft: 8 }}>
+                            这里选择要查询的区服 <Icon type="down" />
+                        </Button>
+                    </Dropdown>
 
-                            <Dropdown.Button onClick={handleButtonClick} overlay={menu}>
-                            这里选择要查询的区服
-                            </Dropdown.Button>
-                            <DatePicker onChange={onChange}/>
+                    <DatePicker onChange={onChange}/>
 
-                            <Button  type="primary">查询</Button>
+                    <Button  type="primary" onClick={queryClick}>查询</Button>
             
 
                  </Breadcrumb>

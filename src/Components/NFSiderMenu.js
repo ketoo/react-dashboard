@@ -5,6 +5,9 @@ import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
 
 import {queryCurrentDailyNewUser, queryCurrentDailyAvtivelyUser, queryCurrentRetention} from '../Services/NFBusinessAPI';
+
+import {queryCurrentLevel, queryLevel} from '../Services/NFBusinessAPI';
+
 import NFRootModel from '../Models/NFRootModel';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -37,6 +40,10 @@ class NFSiderMenu extends React.Component {
         {
           queryCurrentRetention();
         }
+        if (e.key == 4)
+        {
+          queryCurrentLevel();
+        }
       }
 
   render() {
@@ -65,7 +72,7 @@ class NFSiderMenu extends React.Component {
               <Menu.Item key="1">新增 DNW </Menu.Item>
               <Menu.Item key="2">日活 DAU </Menu.Item>
               <Menu.Item key="3">留存 DR </Menu.Item>
-              <Menu.Item key="4">等级分布 LP </Menu.Item>
+              <Menu.Item key="4">等级分布 LD </Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub2"
