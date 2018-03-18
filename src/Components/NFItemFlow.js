@@ -196,10 +196,9 @@ class NFItemFlow extends React.Component {
                     <Axis name="time" />
                     <Axis name="number" label={{formatter: val => `${val}`}}/>
                     <Tooltip crosshairs={{type : "y"}}/>
-                    <Geom type="line" position="time*number" size={2} color={'number'} />
-                    <Geom type='point' position="time*number" size={6} shape={'circle'} color={'number'} style={{ stroke: '#fff', lineWidth: 1}} />
+                    <Geom type="line" position="time*number" size={2} />
+                    <Geom type='point' position="time*number" size={4} shape={'circle'}  style={{ stroke: '#fff', lineWidth: 1}} />
                 </Chart>
-
             }
                 
           </Content>
