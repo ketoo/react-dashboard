@@ -7,7 +7,8 @@ import { BackTop } from 'antd';
 import { Chart, Geom, Axis, Tooltip, Legend, Coord } from 'bizcharts';
 import { DatePicker } from 'antd';
 import { View , DataSet} from '@antv/data-set';
-
+import { observable, computed, action } from "mobx";
+import { observer } from "mobx-react";
 import { Button, Dropdown, Icon, message } from 'antd';
 import moment from 'moment';
 
@@ -15,70 +16,60 @@ import {queryCurrentLevel, queryLevel} from '../Services/NFBusinessAPI';
 
 const { Content } = Layout;
 
+@observer
 class NFLevelPreview extends React.Component {
-    
+    constructor(props) {
+        super(props);
 
-  render() {
+        this.state = { curZone: "0" }
+        this.state = { curPlat: "0" }
+        this.state = { curDate: null }
+      }
 
-    var curZone;
-    var curDate;
-
-    function queryClick() {
-        if (curZone == null || curDate == null)
+    handleMenuClick(e) {   
+        this.setState({curZone: e.key})
+    }
+    queryClick() {
+        if (this.state.curDate == null)
         {
-            message.error('Please input zone and date');
+            message.error('Please input date');
             return;
         }
-        queryLevel(curDate, "0");
-        queryLevel(curDate, curZone);
+        queryLevel(this.state.curDate, this.state.curZone);
 
     }
 
-    function handleMenuClick(e) {
-        //message.info('Click on menu item.');
-        curZone = e;
-        console.log('click', e);
-    }
-
-    function onChange(date, dateString) {
-        console.log(date, dateString);
+    onChange(date, dateString) {
         if (dateString != null && dateString != "")
         {
-            curDate = dateString;
+            this.setState({curDate: dateString})
         }
       }
 
-    // 数据源
-    const data = [
-        { day: '1', user: 275, income: 2300 },
-        { day: '2', user: 115, income: 667 },
-        { day: '3', user: 120, income: 982 },
-        { day: '4', user: 350, income: 5271 },
-        { day: '5', user: 350, income: 5271 },
-        { day: '6', user: 350, income: 5271 },
-        { day: '7', user: 350, income: 5271 },
-        { day: '8', user: 350, income: 5271 },
-        { day: '9', user: 350, income: 5271 },
-        { day: '10', user: 350, income: 5271 },
-        { day: '11', user: 350, income: 5271 },
-        { day: '12', user: 350, income: 5271 },
-        { day: '13', user: 1350, income: 5271 },
-        { day: '14', user: 150, income: 3710 }
-    ];
-    
+  render() {
+
+    var levelZoneData ;
+    var levelTotalData;
+
+    if (this.props.store.levelData)
+    {
+        levelZoneData = this.props.store.levelData.levelZoneData;
+        levelTotalData = this.props.store.levelData.levelTotalData;
+    }
+
     // 定义度量
     const cols = {
-        user: { alias: '销售量' },
-        day: { alias: '游戏种类' }
+        level: { alias: '等级' },
+        number: { alias: '数量' }
     };
 
         var platNewUser = ['1', '2', '3'];
 
         const menu = (
-            <Menu onClick={handleMenuClick}>
+            <Menu onClick={this.handleMenuClick.bind(this)}>
               {this.props.store.zone &&
                 this.props.store.zone.map((key) => (  
-                    <Menu.Item key={key}>{key}</Menu.Item>
+                    <Menu.Item key={key}>区服 {key}</Menu.Item>
                 )) 
             }
             </Menu>
@@ -92,46 +83,46 @@ class NFLevelPreview extends React.Component {
 
                 <Dropdown overlay={menu}>
                     <Button style={{ marginLeft: 8 }}>
-                        这里选择要查询的区服 <Icon type="down" />
+                       区服 {this.state.curZone} <Icon type="down" />
                     </Button>
                 </Dropdown>
 
-                <DatePicker  onChange={onChange}/>
+                <DatePicker  onChange={this.onChange.bind(this)}/>
 
-                <Button  type="primary" onClick={queryClick}>查询</Button>
+                <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
 
             </Breadcrumb>
-
-                    <Chart height={320} width={900} data={data} scale={cols}>
-                        <Legend />
-                        <Axis name="day" />
-                        <Axis name="user" label={{formatter: val => `Level:${val}`}}/>
-                        <Tooltip crosshairs={{type : "y"}}/>
-                        <Geom type="line" position="day*user" size={2} color={'city'} />
-                        <Geom type='point' position="day*user" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
-                    </Chart>
-
-            <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
-            {
-
-                platNewUser.map(function (keyValue) {
-                return <div>
-
-                    <Breadcrumb.Item>{keyValue}</Breadcrumb.Item>
-
-                    <Chart height={320} width={900} data={data} scale={cols}>
-                        <Legend />
-                        <Axis name="day" />
-                        <Axis name="user" label={{formatter: val => `${val}°C`}}/>
-                        <Tooltip crosshairs={{type : "y"}}/>
-                        <Geom type="line" position="day*user" size={2} color={'city'} />
-                        <Geom type='point' position="day*user" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
-                    </Chart>
-                    </div>
-                })
+            { levelTotalData &&
+                <Chart height={400} data={levelTotalData} scale={cols} forceFit>
+                    <Axis name="level" />
+                    <Axis name="number"  label={{formatter: val => `${val}`}}/>
+                    <Tooltip crosshairs={{type : "y"}}/>
+                    <Geom type="line" position="level*number" size={2} />
+                    <Geom type='point' position="level*number" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
+                </Chart>
             }
-            </div>   
 
+            { levelZoneData && 
+                <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+                {
+                        <div>
+
+                        <Breadcrumb style={{ margin: '16px 0' }}>
+                        </Breadcrumb>
+                        
+                        <Chart height={400} data={levelZoneData} scale={cols} forceFit>
+                            <Axis name="level" />
+                            <Axis name="number"  label={{formatter: val => `${val}`}}/>
+                            <Tooltip crosshairs={{type : "y"}}/>
+                            <Geom type="line" position="level*number" size={2} />
+                            <Geom type='point' position="level*number" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
+                        </Chart>
+
+                        </div>
+                }
+                </div>   
+
+            }  
           </Content>
     );
   }

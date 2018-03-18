@@ -4,6 +4,7 @@ class NFRootModel {
 
   @observable host;
   @observable host_dev = "http://127.0.0.1:5000";
+  //@observable host_dev = "http://leetframe.com:5000";
   @observable host_pro = "http://leetframe.com:5000";
 
 
@@ -15,12 +16,22 @@ class NFRootModel {
 
   @observable zone;
   @observable plat;
+  @observable itemIDList;
+  @observable itemTypeList;
+  @observable reasonList;
+  @observable subReasonList;
+  @observable activityTypeList;
+  @observable taskTypeList;
+  @observable taskIDList;
 
   @observable onlineData;
   @observable newUserData;
   @observable dailyActivelyUserData;
   @observable dailyRetentionData;
   @observable levelData;
+  @observable itemData;
+  @observable taskData;
+  @observable activityData;
   
 
   @action
@@ -59,8 +70,6 @@ class NFRootModel {
     }
   }
 
-
-
   @computed
   get loginState() {
     return this.isLoggedIn;
@@ -79,6 +88,66 @@ class NFRootModel {
   @action
   setContentType(type) {
     this.contentType =type;
+  }
+
+
+  @computed
+  get getItemIDList() {
+    return this.itemIDList;
+  }
+
+  @action
+  setItemIDList(data) {
+    this.itemIDList =data;
+  }
+
+  @computed
+  get getItemTypeList() {
+    return this.itemTypeList;
+  }
+
+  @action
+  setItemTypeList(data) {
+    this.itemTypeList =data;
+  }
+
+  @computed
+  get getReasonList() {
+    return this.reasonList;
+  }
+
+  @action
+  setReasonList(data) {
+    this.reasonList =data;
+  }
+
+  @computed
+  get getSubReasonList() {
+    return this.subReasonList;
+  }
+
+  @action
+  setSubReasonList(data) {
+    this.subReasonList =data;
+  }
+
+  @computed
+  get getActivityTypeList() {
+    return this.activityTypeList;
+  }
+
+  @action
+  setActivityTypeList(data) {
+    this.activityTypeList =data;
+  }
+
+  @action
+  setTaskTypeList(data) {
+    this.taskTypeList =data;
+  }
+  @action
+  setTaskIDList(data) {
+    this.taskIDList =data;
   }
 
   @computed
@@ -121,5 +190,20 @@ class NFRootModel {
     this.onlineData =data;
   }
 
+  @action
+  setItemData(data) {
+    this.itemData =data;
+  }
+
+  @action
+  setTaskData(data) {
+    this.taskData =data;
+  }
+
+  @action
+  setActivityData(data) {
+    this.activityData =data;
+  }
+  
 }
 export default NFRootModel;

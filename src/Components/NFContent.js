@@ -9,6 +9,9 @@ import NFDailyNewUser from './NFDailyNewUser';
 import NFDailyActiveUser from './NFDailyActiveUser';
 import NFDailyRetention from './NFDailyRetention';
 import NFLevelPreview from './NFLevelPreview';
+import NFItemFlow from './NFItemFlow';
+import NFTaskFlow from './NFTaskFlow';
+import NFActivityFlow from './NFActivityFlow';
 import NFMenuModel from '../Models/NFMenuModel';
 import NFRootModel from '../Models/NFRootModel';
 
@@ -43,6 +46,15 @@ class NFContent extends React.Component {
         } 
         { contentType == 4 && 
           <NFLevelPreview  store={this.props.store}/>
+        }
+        { contentType == 11 && 
+          <NFItemFlow  store={this.props.store}/>
+        }
+        { contentType == 21 && 
+          <NFTaskFlow  store={this.props.store}/>
+        }
+        { contentType == 25 && 
+          <NFActivityFlow  store={this.props.store}/>
         }
       </Content>
     );

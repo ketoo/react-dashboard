@@ -21,37 +21,37 @@ const { Content } = Layout;
 
 @observer
 class NFDailyRetention extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { curZone: '0' }
+        this.state = { curPlat: '0' }
+        this.state = { curDate: null }
+      }
+
+    handleMenuClick(e) {   
+        this.setState({curPlat: e.key})
+    }
     
-
-  render() {
-
-    var curZone;
-    var curDate;
-
-    function queryClick() {
-        if (curZone == null || curDate == null)
+    queryClick() {
+        if (this.state.curDate == null)
         {
-            message.error('Please input zone and date');
+            message.error('Please input and date');
             return;
         }
 
-        queryRetention(curDate, "0");
-        queryRetention(curDate, curZone);
+        queryRetention(this.state.curDate, this.state.curPlat);
     }
 
-    function handleMenuClick(e) {
-        //message.info('Click on menu item.');
-        curZone = e;
-    }
-
-    function onChange(date, dateString) {
+    onChange(date, dateString) {
         console.log(date, dateString);
         if (dateString != null && dateString != "")
         {
-            curDate = dateString;
+            this.setState({curDate: dateString})
         }
       }
 
+  render() {
 
        // 数据源
     var totalData ;
@@ -61,7 +61,6 @@ class NFDailyRetention extends React.Component {
     {
         totalData = this.props.store.dailyRetentionData.totalUserData;
         platNewUser = this.props.store.dailyRetentionData.platUserData;
-
     }
 
     console.log("totalData", totalData);
@@ -109,10 +108,10 @@ class NFDailyRetention extends React.Component {
         };
 
         const menu = (
-            <Menu onClick={handleMenuClick}>
-              {this.props.store.zone &&
-                this.props.store.zone.map((key) => (  
-                    <Menu.Item key={key}>{key}</Menu.Item>
+            <Menu onClick={this.handleMenuClick.bind(this)}>
+              {this.props.store.plat &&
+                this.props.store.plat.map((key) => (  
+                    <Menu.Item key={key}>渠道 {key}</Menu.Item>
                 )) 
             }
             </Menu>
@@ -126,19 +125,19 @@ class NFDailyRetention extends React.Component {
 
                 <Dropdown overlay={menu}>
                     <Button style={{ marginLeft: 8 }}>
-                        这里选择要查询的区服 <Icon type="down" />
+                       渠道 {this.state.curPlat} <Icon type="down" />
                     </Button>
                 </Dropdown>
                 
-                <DatePicker  onChange={onChange}/>
+                <DatePicker  onChange={this.onChange.bind(this)}/>
 
-                <Button  type="primary" onClick={queryClick}>查询</Button>
+                <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
 
             </Breadcrumb>
 
             { totalData && 
                 <Chart width={900} height={400} data={totalData} scale={cols}>
-                    <Axis name="day" />
+                    <Axis name="day"   label={{formatter: val => `${val} 日留存`}}/>
                     <Axis name="rate" label={{formatter: val => `${val}`}}/>
                     <Tooltip/>
                     <Geom type="interval" position="day*rate" color="rate" />
@@ -146,16 +145,15 @@ class NFDailyRetention extends React.Component {
             }
             
             { platNewUser &&
-                Object.keys(platNewUser).map((key) => (  
                     <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
                         { 
                         <div>
                             <Breadcrumb style={{ margin: '16px 0' }}>
                             </Breadcrumb>
 
-                            <Chart height={320} width={900} data={platNewUser[key]} scale={cols}>
+                            <Chart height={320} width={900} data={platNewUser} scale={cols}>
                             <Legend />
-                            <Axis name="day" />
+                            <Axis name="day"  label={{formatter: val => `${val} 日留存`}}/>
                             <Axis name="rate" label={{formatter: val => `${val}`}}/>
                             <Tooltip crosshairs={{type : "y"}}/>
                             <Geom type="line" position="day*rate" size={2} color={'city'} />
@@ -164,7 +162,6 @@ class NFDailyRetention extends React.Component {
                         </div>
                         }
                     </div> 
-                  )) 
             }
                 
           </Content>

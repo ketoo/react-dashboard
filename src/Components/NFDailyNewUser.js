@@ -20,36 +20,37 @@ const { Content } = Layout;
 
 @observer
 class NFDailyNewUser extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { curZone: '0' }
+        this.state = { curPlat: '0' }
+        this.state = { curDate: null }
+      }
+
+    handleMenuClick(e) {   
+        this.setState({curPlat: e.key})
+    }
     
-
-  render() {
-    var curZone;
-    var curDate;
-
-    function queryClick() {
-        if (curZone == null || curDate == null)
+    queryClick() {
+        if (this.state.curDate == null)
         {
-            message.error('Please input zone and date');
+            message.error('Please input curPlat and date');
             return;
         }
 
-        queryDailyNewUser(curDate, curZone);
-        queryDailyNewUser(curDate, "0");
+        queryDailyNewUser(this.state.curDate, this.state.curPlat);
     }
 
-    function handleMenuClick(e) {
-        //message.info('Click on menu item.');
-        curZone = e;
-    }
-
-    function onChange(date, dateString) {
+    onChange(date, dateString) {
         console.log(date, dateString);
         if (dateString != null && dateString != "")
         {
-            curDate = dateString;
+            this.setState({curDate: dateString})
         }
       }
 
+  render() {
 
        // 数据源
     var totalData ;
@@ -61,55 +62,16 @@ class NFDailyNewUser extends React.Component {
         platNewUser = this.props.store.newUserData.platUserData;
 
     }
-
-    console.log("totalData", totalData);
-    console.log("platNewUser", platNewUser);
-
-    /*
-        private String plat;
-    
-        private String time;
-    
-        //渠道人数，若渠道为0，则和total一样
-        private Integer todayNumber;
-    
-        //今天总人数
-        private Integer totalNumber;
-
-            // 数据源
-        const data = [
-            { time: '1', todayNumber: 275, income: 2300 },
-            { time: '2', todayNumber: 115, income: 667 },
-            { time: '3', todayNumber: 120, income: 982 },
-            { time: '4', todayNumber: 350, income: 5271 },
-            { time: '5', todayNumber: 350, income: 5271 },
-            { time: '6', todayNumber: 350, income: 5271 },
-            { time: '7', todayNumber: 350, income: 5271 },
-            { time: '8', todayNumber: 350, income: 5271 },
-            { time: '9', todayNumber: 350, income: 5271 },
-            { time: '10', todayNumber: 350, income: 5271 },
-            { time: '11', todayNumber: 350, income: 5271 },
-            { time: '12', todayNumber: 350, income: 5271 },
-            { time: '13', todayNumber: 1350, income: 5271 },
-            { time: '14', todayNumber: 150, income: 3710 }
-        ];
-       var platNewUser = [ 
-            { time: '1', age: 21, gender: 'male' },
-            { time: '2', age: 21, gender: 'male' },
-            { time: '3', age: 21, gender: 'male' }
-        ];
-     
-*/
         // 定义度量
         const cols = {
             todayNumber: { alias: '新用户 New users' },
             time: { alias: 'New User Today' }
         };
         const menu = (
-            <Menu onClick={handleMenuClick}>
-            {this.props.store.zone &&
-                this.props.store.zone.map((key) => (  
-                    <Menu.Item key={key}>{key}</Menu.Item>
+            <Menu onClick={this.handleMenuClick.bind(this)}>
+            {this.props.store.plat &&
+                this.props.store.plat.map((key) => (  
+                    <Menu.Item key={key}>渠道 {key}</Menu.Item>
                 )) 
             }
             </Menu>
@@ -123,18 +85,18 @@ class NFDailyNewUser extends React.Component {
 
                 <Dropdown overlay={menu}>
                     <Button style={{ marginLeft: 8 }}>
-                        这里选择要查询的区服 <Icon type="down" />
+                       渠道 {this.state.curPlat} <Icon type="down" />
                     </Button>
                 </Dropdown>
 
-                <DatePicker onChange={onChange}/>
+                <DatePicker  onChange={this.onChange.bind(this)}/>
 
-                <Button  type="primary" onClick={queryClick}>查询</Button>
+                <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
    
             </Breadcrumb>
 
             { totalData && 
-                <Chart width={900} height={400} data={totalData} scale={cols}>
+                <Chart height={400} data={totalData} scale={cols} forceFit>
                     <Axis name="time" />
                     <Axis name="todayNumber"/>
                     <Tooltip/>
@@ -148,7 +110,7 @@ class NFDailyNewUser extends React.Component {
                         <Breadcrumb style={{ margin: '16px 0' }}>
                         </Breadcrumb>
 
-                        <Chart height={320} width={900} data={platNewUser} scale={cols}>
+                        <Chart height={400} data={platNewUser} scale={cols} width={900} forceFit>
                         <Legend />
                         <Axis name="time" />
                         <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>

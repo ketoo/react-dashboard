@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NFRootModel from '../Models/NFRootModel';
-import {queryCurrentOnlineData, queryCurrentZone, queryCurrentPlat} from '../Services/NFBusinessAPI';
+import {queryCurrentOnlineData} from '../Services/NFBusinessAPI';
+import {queryCurrentZone, queryCurrentPlat} from '../Services/NFGlobalAPI';
+import {queryItemTypeList, queryItemIDList, queryReasonList, querySubReasonList, queryActivityTypeList} from '../Services/NFGlobalAPI';
+import {queryTaskIDList, queryTaskTypeList} from '../Services/NFGlobalAPI';
 import { message, Button } from 'antd'
 
 export function login(userName, password) {
@@ -15,11 +18,25 @@ export function login(userName, password) {
 
       window.store.setLoginState(true);
       window.store.isLoading = false;
+
+      queryCurrentZone();
+      queryCurrentPlat();
+
+      queryItemTypeList();
+      queryItemIDList();
+      queryReasonList();
+      querySubReasonList();
+      queryActivityTypeList();
+      queryTaskIDList();
+      queryTaskTypeList();
+
+      queryCurrentOnlineData();
+
     }
     else
     {
       window.store.setProdEvn(true);
-    }
+  
 
     var url = window.store.host + "/user/login"
     console.log(userName, password);
@@ -55,6 +72,6 @@ export function login(userName, password) {
     message.error("Cannot connect to the server");
     window.store.isLoading = false;
   });
-
+}
 
 }

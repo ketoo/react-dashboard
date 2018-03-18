@@ -26,8 +26,9 @@ class NFSiderMenu extends React.Component {
       @action
       handleClick = (e) => {
         //console.log('click ', e.key);
-        
+
         window.store.setContentType(e.key);
+
         if (e.key == 1)
         {
           queryCurrentDailyNewUser();
@@ -44,6 +45,10 @@ class NFSiderMenu extends React.Component {
         {
           queryCurrentLevel();
         }
+
+        if (e.key == 11)
+        {
+        }
       }
 
   render() {
@@ -57,7 +62,7 @@ class NFSiderMenu extends React.Component {
           <Menu 
           onClick={this.handleClick} 
           theme="dark" 
-          defaultSelectedKeys={['1']} 
+          defaultSelectedKeys={['0']} 
           mode="inline"
           >
 
@@ -71,7 +76,7 @@ class NFSiderMenu extends React.Component {
             >
               <Menu.Item key="1">新增 DNW </Menu.Item>
               <Menu.Item key="2">日活 DAU </Menu.Item>
-              <Menu.Item key="3">留存 DR </Menu.Item>
+              <Menu.Item key="3">日留存 DR </Menu.Item>
               <Menu.Item key="4">等级分布 LD </Menu.Item>
             </SubMenu>
             <SubMenu
@@ -86,11 +91,14 @@ class NFSiderMenu extends React.Component {
               title={<span><Icon type="team" /><span>产品 Production</span></span>}
             >
               <Menu.Item key="21">任务 Tasks</Menu.Item>
-              <Menu.Item key="22">流失 Blocking</Menu.Item>
               <Menu.Item key="23">副本 Rounds</Menu.Item>
               <Menu.Item key="24">函数 API</Menu.Item>
               <Menu.Item key="25">活动 Activity</Menu.Item>
+              {/*
+              <Menu.Item key="22">流失 Blocking</Menu.Item>
               <Menu.Item key="26">行为 Behaviour</Menu.Item>
+              */
+            }
             </SubMenu>
           </Menu>
         </Sider>

@@ -19,109 +19,57 @@ const { Content } = Layout;
 
 @observer
 class NFAnalysisOperatePlatform extends React.Component {
+    constructor(props) {
+        super(props);
 
-  render() {
-
-    var curZone;
-    var curDate;
-
+        this.state = { curZone: "0" }
+        this.state = { curPlat: "0" }
+        this.state = { curDate: null }
+      }
   
-    function queryClick() {
-        if (curZone == null || curDate == null)
+    handleMenuClick(e) {   
+        this.setState({curZone: e.key})
+    }
+
+    queryClick() {
+        if (this.state.curZone == null || this.state.curDate == null)
         {
             message.error('Please input zone and date');
             return;
         }
 
-        queryOnlineData(curDate, "0");
-        queryOnlineData(curDate, curZone);
-        
+        queryOnlineData(this.state.curDate, this.state.curZone);
     }
 
-    function handleMenuClick(e) {   
-        curZone = e;
-        message.error({curZone});
-    }
     
-      function onChange(date, dateString) {
+    onChange(date, dateString) {
         if (dateString != null && dateString != "")
         {
-            curDate = dateString;
+            this.setState({curDate: dateString})
         }
-      }
+    }
+
+  render() {
            // 数据源
-        const data = [
-            { time: '0', todayNumber: 275 },
-            { time: '1', todayNumber: 275 },
-            { time: '2', todayNumber: 115 },
-            { time: '3', todayNumber: 120 },
-            { time: '4', todayNumber: 350 },
-            { time: '5', todayNumber: 350 },
-            { time: '6', todayNumber: 350 },
-            { time: '7', todayNumber: 350 },
-            { time: '8', todayNumber: 350 },
-            { time: '9', todayNumber: 350 },
-            { time: '10', todayNumber: 350 },
-            { time: '11', todayNumber: 350 },
-            { time: '12', todayNumber: 350 },
-            { time: '13', todayNumber: 1350 },
-            { time: '14', todayNumber: 150 },
-            { time: '15', todayNumber: 150 },
-            { time: '16', todayNumber: 150 },
-            { time: '17', todayNumber: 150 },
-            { time: '18', todayNumber: 150 },
-            { time: '19', todayNumber: 150 },
-            { time: '20', todayNumber: 150 },
-            { time: '21', todayNumber: 150 },
-            { time: '22', todayNumber: 150 },
-            { time: '23', todayNumber: 150 }
-        ];
+           var totalData ;
+           var zoneData;
+       
+           if (this.props.store.onlineData)
+           {
+               totalData = this.props.store.onlineData.totalOnlineData;
+               zoneData = this.props.store.onlineData.zoneOnlineData;
+       
+           }
+  
+
          // 定义度量
-         const cols = {
-            todayNumber: { alias: 'New users' },
-            time: { alias: 'Workload' }
-        };
-
-        // 数据源
-        const dataLine = [
-            { hour: '1', value: 15468 },
-            { hour: '2', value: 16100 },
-            { hour: '3', value: 15900 },
-            { hour: '4', value: 17409 },
-            { hour: '5', value: 17000 },
-            { hour: '6', value: 31056 },
-            { hour: '7', value: 31982 },
-            { hour: '8', value: 32040 },
-            { hour: '9', value: 33233 },
-            { hour: '10', value: 33233 },
-            { hour: '11', value: 15468 },
-            { hour: '12', value: 16100 },
-            { hour: '13', value: 15900 },
-            { hour: '14', value: 17409 },
-            { hour: '15', value: 17000 },
-            { hour: '16', value: 31056 },
-            { hour: '17', value: 31982 },
-            { hour: '18', value: 32040 },
-            { hour: '19', value: 33233 },
-            { hour: '20', value: 33233 },
-            { hour: '21', value: 33233 },
-            { hour: '22', value: 33233 },
-            { hour: '23', value: 33233 }
-          ];
-
-          const colsLine={
-            value: {
-              min: 10000
-            },
-            hour: {
-              range: [ 0 , 1 ]
-            }
+         const colsLine = {
+            number: { alias: 'Number' },
+            time: { alias: 'Time' }
         };
        
-        console.log("this.props.store.zone", this.props.store.zone);
-
         const menu = (
-            <Menu onClick={handleMenuClick}>
+            <Menu onClick={this.handleMenuClick.bind(this)}>
             {this.props.store.zone &&
                 this.props.store.zone.map((key) => (  
                     <Menu.Item key={key}>{key}</Menu.Item>
@@ -133,6 +81,8 @@ class NFAnalysisOperatePlatform extends React.Component {
 
     return (
       <Content style={{ margin: '0 16px' }}>
+      {
+          /*
            <div style={{ background: '#ECECEC', padding: '30px' }}>
                 <Row gutter={16}>
                 <Col span={8}>
@@ -152,54 +102,58 @@ class NFAnalysisOperatePlatform extends React.Component {
                 </Col>
                 </Row>
             </div>
+          */
+      }
+          
            
              <div>
                  <Breadcrumb style={{ margin: '16px 0' }}>
-                     <Breadcrumb.Item>负载信息 Workload information</Breadcrumb.Item>
+                     <Breadcrumb.Item>用户在线信息</Breadcrumb.Item>
 
                      <Dropdown overlay={menu}>
                         <Button style={{ marginLeft: 8 }}>
-                            这里选择要查询的区服 <Icon type="down" />
+                           区服 {this.state.curZone}
+                            <Icon type="down" />
                         </Button>
                     </Dropdown>
 
-                    <DatePicker onChange={onChange}/>
+                    <DatePicker onChange={this.onChange.bind(this)}/>
 
-                    <Button  type="primary" onClick={queryClick}>查询</Button>
+                    <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
             
 
                  </Breadcrumb>
              </div>
 
-             <Chart width={900} height={400} data={data} scale={cols}>
+             {totalData && 
+            <Chart height={400} data={totalData} scale={colsLine} forceFit>
                  <Axis name="time" />
-                 <Axis name="todayNumber"/>
-                 <Tooltip/>
-                <Geom type="interval" position="time*todayNumber" color="todayNumber" />
-            </Chart>
+                 <Axis name="number"  label={{formatter: val => `${val}`}}/>
+                 <Tooltip crosshairs={{type : "y"}}/>
+                 <Geom type="line" position="time*number" size={2} />
+                 <Geom type='point' position="time*number" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
+             </Chart>
+             }
 
-            <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
-            {
-                    <div>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>实时用户在线信息 Realtime user information</Breadcrumb.Item>
-
-                        </Breadcrumb>
-                    </div>
-                }
-
-                 <Chart width={900} height={360} data={dataLine} scale={colsLine} >
-                     <Axis name="year" />
-                     <Axis name="value" label={{
-                         formatter: val => {
-                         return (val / 10000).toFixed(1) + 'k';
-                         }
-                     }} />
-                     <Tooltip crosshairs={{type:'line'}}/>
-                     <Geom type="area" position="hour*value" />
-                     <Geom type="line" position="hour*value" size={2} />
-                 </Chart>
-            </div>
+             {zoneData &&
+                      <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+                      { 
+                      <div>
+                          <Breadcrumb style={{ margin: '16px 0' }}>
+                          </Breadcrumb>
+  
+                        <Chart height={400} data={zoneData} scale={colsLine} forceFit>
+                            <Axis name="time" />
+                            <Axis name="number"  label={{formatter: val => `${val}`}}/>
+                            <Tooltip crosshairs={{type : "y"}}/>
+                            <Geom type="line" position="time*number" size={2} />
+                            <Geom type='point' position="time*number" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
+                        </Chart>
+                      </div>
+                      }
+                  </div> 
+                    
+             }
           </Content>
     );
   }
