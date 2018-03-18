@@ -305,3 +305,35 @@ export function queryActivityData(time, type) {
     window.store.isLoading = false;
   });
 }
+
+export function queryRoundData(time, type, id) {
+    console.log("queryRoundData time", time);
+    console.log("queryRoundData type", type);
+
+    window.store.isLoading = true;
+
+    var url = window.store.host + "/analysis/rounddata"
+    axios.post(url, {
+        date: time,
+        day: 15,
+        type: type,
+        id: id
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function (response) {
+        console.log("queryRoundData res", response.data.roundData);
+        
+        {response.data.code === 0 && 
+            window.store.setRoundData(response.data.roundData);
+        }
+
+      window.store.isLoading = false;
+  })
+  .catch(function (error) {
+    console.log(error);
+    window.store.isLoading = false;
+  });
+}

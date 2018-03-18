@@ -23,6 +23,8 @@ class NFRootModel {
   @observable activityTypeList;
   @observable taskTypeList;
   @observable taskIDList;
+  @observable roundTypeList;
+  @observable roundIDList;
 
   @observable onlineData;
   @observable newUserData;
@@ -32,6 +34,7 @@ class NFRootModel {
   @observable itemData;
   @observable taskData;
   @observable activityData;
+  @observable roundData;
   
 
   @action
@@ -150,6 +153,17 @@ class NFRootModel {
     this.taskIDList =data;
   }
 
+  @action
+  setRoundTypeList(data) {
+    this.roundTypeList =data;
+  }
+
+  @action
+  setRoundIDList(data) {
+    this.roundIDList =data;
+  }
+
+
   @computed
   get getNewUserData() {
     return this.newUserData;
@@ -203,6 +217,11 @@ class NFRootModel {
   @action
   setActivityData(data) {
     this.activityData =data;
+  }
+
+  @action
+  setRoundData(data) {
+    this.roundData =data;
   }
   
 }

@@ -6,6 +6,7 @@ import {queryCurrentOnlineData} from '../Services/NFBusinessAPI';
 import {queryCurrentZone, queryCurrentPlat} from '../Services/NFGlobalAPI';
 import {queryItemTypeList, queryItemIDList, queryReasonList, querySubReasonList, queryActivityTypeList} from '../Services/NFGlobalAPI';
 import {queryTaskIDList, queryTaskTypeList} from '../Services/NFGlobalAPI';
+import {queryRoundIDList, queryRoundTypeList} from '../Services/NFGlobalAPI';
 import { message, Button } from 'antd'
 
 export function login(userName, password) {
@@ -29,6 +30,8 @@ export function login(userName, password) {
       queryActivityTypeList();
       queryTaskIDList();
       queryTaskTypeList();
+      queryRoundIDList();
+      queryRoundTypeList();
 
       queryCurrentOnlineData();
 
@@ -60,7 +63,17 @@ export function login(userName, password) {
 
         queryCurrentZone();
         queryCurrentPlat();
-
+  
+        queryItemTypeList();
+        queryItemIDList();
+        queryReasonList();
+        querySubReasonList();
+        queryActivityTypeList();
+        queryTaskIDList();
+        queryTaskTypeList();
+        queryRoundIDList();
+        queryRoundTypeList();
+  
         queryCurrentOnlineData();
       }
 

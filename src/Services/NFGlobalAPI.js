@@ -185,3 +185,44 @@ export function queryTaskIDList() {
   });
 
 }
+
+
+export function queryRoundTypeList() {
+    var url = window.store.host + "/analysis/roundtypelist"
+    axios.post(url, {
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function (response) {
+        {response.data.code === 0 && 
+            window.store.setRoundTypeList(response.data.data);
+            console.log("setRoundTypeList", response.data.data)
+        }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+}
+
+export function queryRoundIDList() {
+    var url = window.store.host + "/analysis/roundidlist"
+    axios.post(url, {
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function (response) {
+        {response.data.code === 0 && 
+            window.store.setRoundIDList(response.data.data);
+            console.log("setRoundIDList", response.data.data)
+        }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+}

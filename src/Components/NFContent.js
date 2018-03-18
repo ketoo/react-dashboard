@@ -12,6 +12,7 @@ import NFLevelPreview from './NFLevelPreview';
 import NFItemFlow from './NFItemFlow';
 import NFTaskFlow from './NFTaskFlow';
 import NFActivityFlow from './NFActivityFlow';
+import NFRoundFlow from './NFRoundFlow';
 import NFMenuModel from '../Models/NFMenuModel';
 import NFRootModel from '../Models/NFRootModel';
 
@@ -52,6 +53,9 @@ class NFContent extends React.Component {
         }
         { contentType == 21 && 
           <NFTaskFlow  store={this.props.store}/>
+        }
+        { contentType == 23 && 
+          <NFRoundFlow  store={this.props.store}/>
         }
         { contentType == 25 && 
           <NFActivityFlow  store={this.props.store}/>
