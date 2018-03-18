@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NFRootModel from '../Models/NFRootModel';
+import { Button, Dropdown, Icon, message } from 'antd';
 
 export function queryCurrentDailyNewUser() {
 
@@ -35,7 +36,7 @@ export function queryDailyNewUser(time, zoneID) {
         window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
     window.store.isLoading = false;
   });
 
@@ -75,7 +76,7 @@ export function queryDailyAvtivelyUser(time, zoneID) {
         window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
     window.store.isLoading = false;
   });
 }
@@ -116,7 +117,7 @@ export function queryRetention(time, platID) {
       window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
     window.store.isLoading = false;
   });
 }
@@ -157,7 +158,7 @@ export function queryLevel(time, zoneID) {
       window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
     window.store.isLoading = false;
   });
 }
@@ -197,7 +198,7 @@ export function queryOnlineData(time, zoneID) {
       window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
     window.store.isLoading = false;
   });
 }
@@ -235,7 +236,7 @@ export function queryItemData(time, type, id, reason, subReason, add) {
       window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
     window.store.isLoading = false;
   });
 }
@@ -270,7 +271,7 @@ export function queryTaskData(time, type, id, add) {
       window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
     window.store.isLoading = false;
   });
 }
@@ -301,7 +302,8 @@ export function queryActivityData(time, type) {
       window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
+    
     window.store.isLoading = false;
   });
 }
@@ -333,7 +335,7 @@ export function queryRoundData(time, type, id) {
       window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
     window.store.isLoading = false;
   });
 }

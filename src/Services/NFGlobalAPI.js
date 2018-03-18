@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NFRootModel from '../Models/NFRootModel';
+import { Button, Dropdown, Icon, message } from 'antd';
 
 export function queryCurrentZone() {
 
@@ -19,7 +20,7 @@ export function queryCurrentZone() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -39,7 +40,7 @@ export function queryCurrentPlat() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -59,7 +60,7 @@ export function queryItemTypeList() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -79,7 +80,7 @@ export function queryItemIDList() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -99,7 +100,7 @@ export function queryReasonList() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -119,7 +120,7 @@ export function querySubReasonList() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -140,7 +141,7 @@ export function queryActivityTypeList() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -161,7 +162,7 @@ export function queryTaskTypeList() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -181,7 +182,7 @@ export function queryTaskIDList() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -202,7 +203,7 @@ export function queryRoundTypeList() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }
@@ -222,7 +223,7 @@ export function queryRoundIDList() {
         }
   })
   .catch(function (error) {
-    console.log(error);
+    message.error(error);
   });
 
 }

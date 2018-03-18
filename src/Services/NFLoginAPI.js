@@ -80,8 +80,6 @@ export function login(userName, password) {
       window.store.isLoading = false;
   })
   .catch(function (error) {
-    console.log("error1", error);
-
     message.error("Cannot connect to the server");
     window.store.isLoading = false;
   });
