@@ -33,7 +33,7 @@ class NFDailyNewUser extends React.Component {
     }
     
     queryClick() {
-        if (this.state.curDate == null)
+        if (this.state.curDate == null || this.state.curPlat == null)
         {
             message.error('Please input curPlat and date');
             return;

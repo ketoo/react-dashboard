@@ -30,9 +30,9 @@ class NFLevelPreview extends React.Component {
         this.setState({curZone: e.key})
     }
     queryClick() {
-        if (this.state.curDate == null)
+        if (this.state.curDate == null || this.state.curZone == null)
         {
-            message.error('Please input date');
+            message.error('Please input date and zone');
             return;
         }
         queryLevel(this.state.curDate, this.state.curZone);

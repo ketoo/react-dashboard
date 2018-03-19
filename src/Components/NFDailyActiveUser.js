@@ -35,7 +35,7 @@ class NFDailyActivelyUser extends React.Component {
     
     queryClick() {
 
-        if (this.state.curDate == null)
+        if (this.state.curDate == null || this.state.curZone == null )
         {
             message.error('Please input zone and date');
             return;

@@ -34,9 +34,9 @@ class NFDailyRetention extends React.Component {
     }
     
     queryClick() {
-        if (this.state.curDate == null)
+        if (this.state.curDate == null || this.state.curPlat == null)
         {
-            message.error('Please input and date');
+            message.error('Please input plat and date');
             return;
         }
 
