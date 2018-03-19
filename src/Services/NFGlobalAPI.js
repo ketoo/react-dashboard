@@ -11,6 +11,8 @@ export function queryCurrentZone() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -31,6 +33,8 @@ export function queryCurrentPlat() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -51,6 +55,8 @@ export function queryItemTypeList() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -71,6 +77,8 @@ export function queryItemIDList() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -91,6 +99,8 @@ export function queryReasonList() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -111,6 +121,8 @@ export function querySubReasonList() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -132,6 +144,8 @@ export function queryActivityTypeList() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -153,6 +167,8 @@ export function queryTaskTypeList() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -173,6 +189,8 @@ export function queryTaskIDList() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -194,6 +212,8 @@ export function queryRoundTypeList() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -214,6 +234,8 @@ export function queryRoundIDList() {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {

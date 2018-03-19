@@ -25,6 +25,8 @@ export function queryDailyNewUser(time, zoneID) {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -65,6 +67,8 @@ export function queryDailyAvtivelyUser(time, zoneID) {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -105,6 +109,8 @@ export function queryRetention(time, platID) {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -146,6 +152,8 @@ export function queryLevel(time, zoneID) {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -186,6 +194,8 @@ export function queryOnlineData(time, zoneID) {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -224,6 +234,8 @@ export function queryItemData(time, type, id, reason, subReason, add) {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -259,6 +271,8 @@ export function queryTaskData(time, type, id, add) {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -290,6 +304,8 @@ export function queryActivityData(time, type) {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {
@@ -323,6 +339,8 @@ export function queryRoundData(time, type, id) {
     }, {
         headers: {
             'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
         }
     })
     .then(function (response) {

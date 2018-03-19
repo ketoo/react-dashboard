@@ -16,30 +16,11 @@ export function login(userName, password) {
     if (process.env.NODE_ENV === "development")
     {
       window.store.setProdEvn(false);
-
-      window.store.setLoginState(true);
-      window.store.isLoading = false;
-
-      queryCurrentZone();
-      queryCurrentPlat();
-
-      queryItemTypeList();
-      queryItemIDList();
-      queryReasonList();
-      querySubReasonList();
-      queryActivityTypeList();
-      queryTaskIDList();
-      queryTaskTypeList();
-      queryRoundIDList();
-      queryRoundTypeList();
-
-      queryCurrentOnlineData();
-
     }
     else
     {
       window.store.setProdEvn(true);
-  
+    }
 
     var url = window.store.host + "/user/login"
     console.log(userName, password);
@@ -56,7 +37,8 @@ export function login(userName, password) {
     .then(function (response) {
       console.log(response.data);
       
-      {response.data.code === 0 && 
+      if (response.data.code == 0)
+      {
         window.store.setLoginState(true);
         window.store.userID = response.data.userID;
         window.store.jwt = response.data.jwt;
@@ -76,6 +58,10 @@ export function login(userName, password) {
   
         queryCurrentOnlineData();
       }
+      else
+      {
+        message.error("Login fail.... error code: " + response.data.code);
+      }
 
       window.store.isLoading = false;
   })
@@ -83,6 +69,5 @@ export function login(userName, password) {
     message.error("Cannot connect to the server");
     window.store.isLoading = false;
   });
-}
 
 }
