@@ -135,6 +135,9 @@ class NFAnalysisOperatePlatform extends React.Component {
                     <Geom type='point' position="time*number" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
                 </Chart>
                 }
+
+            {/*在线信息，只能注册量*/}
+
              {totalData && 
             <Chart height={400} data={totalData} scale={colsLine} forceFit>
                  <Axis name="time" />
