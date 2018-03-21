@@ -32,7 +32,9 @@ class NFDailyRetention extends React.Component {
     handleMenuClick(e) {   
         this.setState({curPlat: e.key})
     }
-    
+    handleMenuZoneClick(e) {   
+        this.setState({curZone: e.key})
+    }
     queryClick() {
         if (this.state.curDate == null || this.state.curPlat == null)
         {
@@ -66,41 +68,6 @@ class NFDailyRetention extends React.Component {
     console.log("totalData", totalData);
     console.log("platNewUser", platNewUser);
 
-    /*
-        private String plat;
-    
-        private String time;
-    
-        //渠道人数，若渠道为0，则和total一样
-        private Integer todayNumber;
-    
-        //今天总人数
-        private Integer totalNumber;
-
-            // 数据源
-        const data = [
-            { time: '1', todayNumber: 275, income: 2300 },
-            { time: '2', todayNumber: 115, income: 667 },
-            { time: '3', todayNumber: 120, income: 982 },
-            { time: '4', todayNumber: 350, income: 5271 },
-            { time: '5', todayNumber: 350, income: 5271 },
-            { time: '6', todayNumber: 350, income: 5271 },
-            { time: '7', todayNumber: 350, income: 5271 },
-            { time: '8', todayNumber: 350, income: 5271 },
-            { time: '9', todayNumber: 350, income: 5271 },
-            { time: '10', todayNumber: 350, income: 5271 },
-            { time: '11', todayNumber: 350, income: 5271 },
-            { time: '12', todayNumber: 350, income: 5271 },
-            { time: '13', todayNumber: 1350, income: 5271 },
-            { time: '14', todayNumber: 150, income: 3710 }
-        ];
-       var platNewUser = [ 
-            { time: '1', age: 21, gender: 'male' },
-            { time: '2', age: 21, gender: 'male' },
-            { time: '3', age: 21, gender: 'male' }
-        ];
-     
-*/
         // 定义度量
         const cols = {
             rate: { alias: '留存率 Ratio' },
@@ -112,6 +79,15 @@ class NFDailyRetention extends React.Component {
               {this.props.store.plat &&
                 this.props.store.plat.map((key) => (  
                     <Menu.Item key={key}>渠道 {key}</Menu.Item>
+                )) 
+            }
+            </Menu>
+          );
+          const menuZone = (
+            <Menu onClick={this.handleMenuZoneClick.bind(this)}>
+              {this.props.store.zone &&
+                this.props.store.zone.map((key) => (  
+                    <Menu.Item key={key}>区服 {key}</Menu.Item>
                 )) 
             }
             </Menu>
@@ -128,7 +104,12 @@ class NFDailyRetention extends React.Component {
                        渠道 {this.state.curPlat} <Icon type="down" />
                     </Button>
                 </Dropdown>
-                
+                <Dropdown overlay={menuZone}>
+                    <Button style={{ marginLeft: 8 }}>
+                       区服 {this.state.curPlat} <Icon type="down" />
+                    </Button>
+                </Dropdown>
+
                 <DatePicker  onChange={this.onChange.bind(this)}/>
 
                 <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>

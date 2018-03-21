@@ -23,23 +23,29 @@ class NFDailyNewUser extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { curZone: '0' }
-        this.state = { curPlat: '0' }
+        this.state = { curZone: null }
+        this.state = { curPlat: null }
         this.state = { curDate: null }
       }
 
     handleMenuClick(e) {   
         this.setState({curPlat: e.key})
+        this.setState({curZone: null})
     }
-    
+
+    handleMenuZoneClick(e) {   
+        this.setState({curPlat: null})
+        this.setState({curZone: e.key})
+    }
+
     queryClick() {
-        if (this.state.curDate == null || this.state.curPlat == null)
+        if (this.state.curDate == null)
         {
             message.error('Please input curPlat and date');
             return;
         }
 
-        queryDailyNewUser(this.state.curDate, this.state.curPlat);
+        queryDailyNewUser(this.state.curDate, this.state.curPlat, this.state.curZone);
     }
 
     onChange(date, dateString) {
@@ -53,12 +59,10 @@ class NFDailyNewUser extends React.Component {
   render() {
 
        // 数据源
-    var totalData ;
     var platNewUser;
 
     if (this.props.store.newUserData)
     {
-        totalData = this.props.store.newUserData.totalUserData;
         platNewUser = this.props.store.newUserData.platUserData;
 
     }
@@ -76,7 +80,15 @@ class NFDailyNewUser extends React.Component {
             }
             </Menu>
           );
- 
+          const menuZone = (
+            <Menu onClick={this.handleMenuZoneClick.bind(this)}>
+            {this.props.store.zone &&
+                this.props.store.zone.map((key) => (  
+                    <Menu.Item key={key}>区服 {key}</Menu.Item>
+                )) 
+            }
+            </Menu>
+          );
 
     return (
       <Content style={{ margin: '0 16px' }}>
@@ -89,38 +101,25 @@ class NFDailyNewUser extends React.Component {
                     </Button>
                 </Dropdown>
 
+                <Dropdown overlay={menuZone}>
+                    <Button style={{ marginLeft: 8 }}>
+                       区服 {this.state.curZone} <Icon type="down" />
+                    </Button>
+                </Dropdown>
+
                 <DatePicker  onChange={this.onChange.bind(this)}/>
 
                 <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
    
             </Breadcrumb>
 
-            { totalData && 
-                <Chart height={400} data={totalData} scale={cols} forceFit>
+            { platNewUser && 
+                <Chart height={400} data={platNewUser} scale={cols} forceFit>
                     <Axis name="time" />
                     <Axis name="todayNumber"/>
                     <Tooltip/>
                     <Geom type="interval" position="time*todayNumber" color="todayNumber" />
                 </Chart>
-            }
-             { platNewUser &&
-                <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
-                    { 
-                    <div>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
-                        </Breadcrumb>
-
-                        <Chart height={400} data={platNewUser} scale={cols} width={900} forceFit>
-                        <Legend />
-                        <Axis name="time" />
-                        <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>
-                        <Tooltip crosshairs={{type : "y"}}/>
-                        <Geom type="line" position="time*todayNumber" size={2} color={'city'} />
-                        <Geom type='point' position="time*todayNumber" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
-                        </Chart>
-                    </div>
-                    }
-                </div> 
             }
 
             {/* hashmap<string, list<object>>

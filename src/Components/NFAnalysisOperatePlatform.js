@@ -25,6 +25,7 @@ class NFAnalysisOperatePlatform extends React.Component {
         this.state = { curZone: "0" }
         this.state = { curPlat: "0" }
         this.state = { curDate: null }
+        this.state = { dobz: null }
       }
   
     handleMenuClick(e) {   
@@ -125,6 +126,15 @@ class NFAnalysisOperatePlatform extends React.Component {
                  </Breadcrumb>
              </div>
 
+            {this.state.dobz && 
+                <Chart height={400} data={totalData} scale={colsLine} forceFit>
+                    <Axis name="time" />
+                    <Axis name="number"  label={{formatter: val => `${val}`}}/>
+                    <Tooltip crosshairs={{type : "y"}}/>
+                    <Geom type="line" position="time*number" size={2} />
+                    <Geom type='point' position="time*number" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
+                </Chart>
+                }
              {totalData && 
             <Chart height={400} data={totalData} scale={colsLine} forceFit>
                  <Axis name="time" />

@@ -4,16 +4,7 @@ import axios from 'axios';
 import NFRootModel from '../Models/NFRootModel';
 import { Button, Dropdown, Icon, message } from 'antd';
 
-export function queryCurrentDailyNewUser() {
-
-    var myDate = new Date();
-    var month = myDate.getMonth() + 1;
-    var dateStr = myDate.getFullYear() + "-" + month + "-" + myDate.getDate();
-
-    queryDailyNewUser(dateStr, "0");
-}
-
-export function queryDailyNewUser(time, zoneID) {
+export function queryDailyNewUser(time, platID, zoneID) {
 
     window.store.isLoading = true;
 
@@ -21,6 +12,7 @@ export function queryDailyNewUser(time, zoneID) {
     axios.post(url, {
         date: time,
         day: 15,
+        plat: platID,
         zone: zoneID
     }, {
         headers: {
@@ -213,7 +205,7 @@ export function queryOnlineData(time, zoneID) {
   });
 }
 
-export function queryItemData(time, type, id, reason, subReason, add) {
+export function queryItemData(time, zoneID, type, id, reason, subReason, add) {
     console.log("queryItemData time", time);
     console.log("queryItemData type", type);
     console.log("queryItemData id", id);
@@ -226,6 +218,7 @@ export function queryItemData(time, type, id, reason, subReason, add) {
     axios.post(url, {
         date: time,
         day: 15,
+        zone: zoneID,
         type: type,
         id:id,
         reason:reason,

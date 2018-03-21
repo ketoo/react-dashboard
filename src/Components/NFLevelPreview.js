@@ -65,7 +65,7 @@ class NFLevelPreview extends React.Component {
 
         var platNewUser = ['1', '2', '3'];
 
-        const menu = (
+        const menuZoneList = (
             <Menu onClick={this.handleMenuClick.bind(this)}>
               {this.props.store.zone &&
                 this.props.store.zone.map((key) => (  
@@ -81,7 +81,7 @@ class NFLevelPreview extends React.Component {
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
 
-                <Dropdown overlay={menu}>
+                <Dropdown overlay={menuZoneList}>
                     <Button style={{ marginLeft: 8 }}>
                        区服 {this.state.curZone} <Icon type="down" />
                     </Button>

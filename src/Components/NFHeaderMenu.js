@@ -3,7 +3,7 @@ import 'antd/dist/antd.min.css';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
-
+import { Modal, Button } from 'antd';
 import NFRootModel from '../Models/NFRootModel';
 
 const { Header, Content, Footer, Sider, MenuItemGroup } = Layout;
@@ -13,7 +13,14 @@ const SubMenu = Menu.SubMenu;
 class NFHeaderMenu extends React.Component {
 
     state = {
-        current: 'mail',
+        current: 'dobz',
+        visible: false,
+      }
+
+      showModal = () => {
+        this.setState({
+          visible: true,
+        });
       }
 
       @action
@@ -28,17 +35,34 @@ class NFHeaderMenu extends React.Component {
         {
           window.store.clearAllData();
         }
-      }
+        else if (e.key == "dobz")
+        {
 
+        }
+      }
+      handleOk = (e) => {
+        console.log(e);
+        this.setState({
+          visible: false,
+        });
+      }
+      handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+          visible: false,
+        });
+      }
   render() {
     return (
+
+
         <Menu
-        className="login-form-forgot"
-        onClick={this.handleClick}
-        selectedKeys={[this.state.current]}
-        mode="horizontal"
-      >
-        <Menu.Item key="mail">
+          className="login-form-forgot"
+          onClick={this.handleClick}
+          selectedKeys={[this.state.current]}
+          mode="horizontal"
+        >
+        <Menu.Item key="dobz">
           <Icon type="mail" />Email
         </Menu.Item>
         <Menu.Item key="add">
@@ -50,6 +74,8 @@ class NFHeaderMenu extends React.Component {
             <Menu.Item key="setting_3">Log out</Menu.Item>
         </SubMenu>
       </Menu>
+
+      
     );
   }
 }

@@ -30,7 +30,10 @@ class NFRoundFlow extends React.Component {
         this.state = { roundType: null }
         this.state = { roundID: null }
       }
-
+      
+    handleMenuClick(e) {   
+        this.setState({curZone: e.key})
+    }
     handleTypeClick(e) {   
         this.setState({roundType: e.key})
         this.setState({roundID: null})
@@ -100,10 +103,26 @@ class NFRoundFlow extends React.Component {
             }
             </Menu>
           );
+
+          const menuZoneList = (
+            <Menu onClick={this.handleMenuClick.bind(this)}>
+              {this.props.store.zone &&
+                this.props.store.zone.map((key) => (  
+                    <Menu.Item key={key}>区服 {key}</Menu.Item>
+                )) 
+            }
+            </Menu>
+          );
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>活动总览 Overview</Breadcrumb.Item>
+
+                <Dropdown overlay={menuZoneList}>
+                    <Button style={{ marginLeft: 8 }}>
+                        区服 {this.state.curZone} <Icon type="down" />
+                    </Button>
+                </Dropdown>
 
                 <Dropdown overlay={menuTypeList}>
                     <Button style={{ marginLeft: 8 }}>

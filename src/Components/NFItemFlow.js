@@ -33,6 +33,9 @@ class NFItemFlow extends React.Component {
         this.state = { itemSubReason: null }
       }
 
+    handleZoneClick(e) {   
+        this.setState({curZone: e.key})
+    }
     handleTypeClick(e) {   
         this.setState({itemID: null})
         this.setState({itemType: e.key})
@@ -65,7 +68,7 @@ class NFItemFlow extends React.Component {
             return;
         }
 
-        queryItemData(this.state.curDate, this.state.itemType, this.state.itemID, this.state.itemReason, this.state.itemSubReason, 1);
+        queryItemData(this.state.curDate, this.state.curZone, this.state.itemType, this.state.itemID, this.state.itemReason, this.state.itemSubReason, 1);
     }
 
     queryClickReduce() {
@@ -81,7 +84,7 @@ class NFItemFlow extends React.Component {
             return;
         }
 
-        queryItemData(this.state.curDate, this.state.itemType, this.state.itemID, this.state.itemReason, this.state.itemSubReason, 0);
+        queryItemData(this.state.curDate, this.state.curZone, this.state.itemType, this.state.itemID, this.state.itemReason, this.state.itemSubReason, 0);
     }
 
     onChange(date, dateString) {
@@ -109,6 +112,16 @@ class NFItemFlow extends React.Component {
             number: { alias: '今日使用量' },
             time: { alias: 'New User Today' }
         };
+
+        const menuZoneList = (
+            <Menu onClick={this.handleZoneClick.bind(this)}>
+              {this.props.store.zone &&
+                this.props.store.zone.map((key) => (  
+                    <Menu.Item key={key}>区服 {key}</Menu.Item>
+                )) 
+            }
+            </Menu>
+          );
 
         const menuTypeList = (
             <Menu onClick={this.handleTypeClick.bind(this)}>
@@ -151,7 +164,14 @@ class NFItemFlow extends React.Component {
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
+
                 <Breadcrumb.Item>道具总览 Overview</Breadcrumb.Item>
+
+                <Dropdown overlay={menuZoneList}>
+                    <Button style={{ marginLeft: 8 }}>
+                       区服 {this.state.curZone} <Icon type="down" />
+                    </Button>
+                </Dropdown>
 
                 <Dropdown overlay={menuTypeList}>
                     <Button style={{ marginLeft: 8 }}>

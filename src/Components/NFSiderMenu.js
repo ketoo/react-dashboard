@@ -31,7 +31,6 @@ class NFSiderMenu extends React.Component {
 
         if (e.key == 1)
         {
-          queryCurrentDailyNewUser();
         }
         if (e.key == 2)
         {
