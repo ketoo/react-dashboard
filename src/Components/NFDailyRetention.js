@@ -24,25 +24,33 @@ class NFDailyRetention extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { curZone: '0' }
-        this.state = { curPlat: '0' }
+        this.state = { curZone: null }
+        this.state = { curPlat: null }
         this.state = { curDate: null }
       }
 
     handleMenuClick(e) {   
         this.setState({curPlat: e.key})
+        this.setState({curZone: null})
     }
     handleMenuZoneClick(e) {   
+        this.setState({curPlat: null})
         this.setState({curZone: e.key})
     }
     queryClick() {
-        if (this.state.curDate == null || this.state.curPlat == null)
+        if (this.state.curPlat == null && this.state.curZone == null)
         {
-            message.error('Please input plat and date');
+            message.error('Please input curPlat or date');
             return;
         }
 
-        queryRetention(this.state.curDate, this.state.curPlat);
+        if (this.state.curDate == null)
+        {
+            this.state.curDate = moment();
+        }
+        
+
+        queryRetention(this.state.curDate, this.state.curPlat, this.state.curZone);
     }
 
     onChange(date, dateString) {
@@ -106,11 +114,11 @@ class NFDailyRetention extends React.Component {
                 </Dropdown>
                 <Dropdown overlay={menuZone}>
                     <Button style={{ marginLeft: 8 }}>
-                       区服 {this.state.curPlat} <Icon type="down" />
+                       区服 {this.state.curZone} <Icon type="down" />
                     </Button>
                 </Dropdown>
 
-                <DatePicker  onChange={this.onChange.bind(this)}/>
+                <DatePicker defaultValue={moment()}  onChange={this.onChange.bind(this)}/>
 
                 <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
 
@@ -138,7 +146,7 @@ class NFDailyRetention extends React.Component {
                             <Axis name="rate" label={{formatter: val => `${val}`}}/>
                             <Tooltip crosshairs={{type : "y"}}/>
                             <Geom type="line" position="day*rate" size={2} color={'city'} />
-                            <Geom type='point' position="day*rate" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
+                            <Geom type='point' position="day*rate" size={4} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
                             </Chart>
                         </div>
                         }

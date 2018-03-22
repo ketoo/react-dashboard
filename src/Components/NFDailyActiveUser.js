@@ -24,8 +24,8 @@ class NFDailyActivelyUser extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { curZone: '0' }
-        this.state = { curPlat: '0' }
+        this.state = { curZone: null }
+        this.state = { curPlat: null }
         this.state = { curDate: null }
       }
 
@@ -35,10 +35,15 @@ class NFDailyActivelyUser extends React.Component {
     
     queryClick() {
 
-        if (this.state.curDate == null || this.state.curZone == null )
+        if (this.state.curZone == null )
         {
-            message.error('Please input zone and date');
+            message.error('Please input zone');
             return;
+        }
+
+        if (this.state.curDate == null)
+        {
+            this.state.curDate = moment();
         }
 
         queryDailyAvtivelyUser(this.state.curDate, this.state.curZone);
@@ -54,18 +59,13 @@ class NFDailyActivelyUser extends React.Component {
   render() {
 
        // 数据源
-    var totalData ;
-    var platNewUser;
+    var platUser;
 
     if (this.props.store.dailyActivelyUserData)
     {
-        totalData = this.props.store.dailyActivelyUserData.totalUserData;
-        platNewUser = this.props.store.dailyActivelyUserData.platUserData;
+        platUser = this.props.store.dailyActivelyUserData.platUserData;
 
     }
-
-    console.log("totalData", totalData);
-    console.log("platNewUser", platNewUser);
 
         // 定义度量
         const cols = {
@@ -87,10 +87,7 @@ class NFDailyActivelyUser extends React.Component {
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-                { totalData && 
-                    <Breadcrumb.Item>日活跃总览 Overview</Breadcrumb.Item>
-                }
-                { platNewUser && 
+                { platUser && 
                     <Breadcrumb.Item>当前区服 Overview</Breadcrumb.Item>
                 }
                 <Dropdown overlay={menu}>
@@ -99,30 +96,21 @@ class NFDailyActivelyUser extends React.Component {
                     </Button>
                 </Dropdown>
 
-                <DatePicker onChange={this.onChange.bind(this)}/>
+                <DatePicker defaultValue={moment()} onChange={this.onChange.bind(this)}/>
 
                 <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
    
 
             </Breadcrumb>
-
-            { totalData && 
-                <Chart height={400} data={totalData} scale={cols} forceFit>
-                    <Axis name="time" />
-                    <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>
-                    <Tooltip/>
-                    <Geom type="interval" position="time*todayNumber" color="todayNumber" />
-                </Chart>
-            }
             
-            { platNewUser &&
+            { platUser &&
                     <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
                         { 
                         <div>
                             <Breadcrumb style={{ margin: '16px 0' }}>
                             </Breadcrumb>
 
-                            <Chart height={400} data={platNewUser} scale={cols} forceFit>
+                            <Chart height={400} data={platUser} scale={cols} forceFit>
                             <Legend />
                             <Axis name="time" />
                             <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>

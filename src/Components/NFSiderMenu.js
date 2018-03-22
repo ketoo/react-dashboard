@@ -4,9 +4,9 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { observable, computed, action } from "mobx";
 import { observer } from "mobx-react";
 
-import {queryCurrentDailyNewUser, queryCurrentDailyAvtivelyUser, queryCurrentRetention} from '../Services/NFBusinessAPI';
+import {queryDailyNewUser, queryDailyAvtivelyUser, queryRetention} from '../Services/NFBusinessAPI';
 
-import {queryCurrentLevel, queryLevel} from '../Services/NFBusinessAPI';
+import {queryLevel} from '../Services/NFBusinessAPI';
 
 import NFRootModel from '../Models/NFRootModel';
 
@@ -23,26 +23,31 @@ class NFSiderMenu extends React.Component {
         this.setState({ collapsed });
       }
 
-      @action
       handleClick = (e) => {
         //console.log('click ', e.key);
+        
+        var myDate = new Date();
+        var month = myDate.getMonth() + 1;
+        var dateStr = myDate.getFullYear() + "-" + month + "-" + myDate.getDate();
+    
 
         window.store.setContentType(e.key);
 
         if (e.key == 1)
         {
+          queryDailyNewUser(dateStr, "0", null);
         }
         if (e.key == 2)
         {
-          queryCurrentDailyAvtivelyUser();
+          queryDailyAvtivelyUser(dateStr, "0");
         }
         if (e.key == 3)
         {
-          queryCurrentRetention();
+          queryRetention(dateStr, "0", null);
         }
         if (e.key == 4)
         {
-          queryCurrentLevel();
+          queryLevel(dateStr, "0");
         }
 
         if (e.key == 11)

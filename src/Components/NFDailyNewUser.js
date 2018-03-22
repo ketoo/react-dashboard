@@ -39,12 +39,17 @@ class NFDailyNewUser extends React.Component {
     }
 
     queryClick() {
-        if (this.state.curDate == null)
+        if (this.state.curPlat == null && this.state.curZone == null)
         {
-            message.error('Please input curPlat and date');
+            message.error('Please input curPlat or date');
             return;
         }
 
+        if (this.state.curDate == null)
+        {
+            this.state.curDate = moment();
+        }
+        
         queryDailyNewUser(this.state.curDate, this.state.curPlat, this.state.curZone);
     }
 
@@ -107,7 +112,7 @@ class NFDailyNewUser extends React.Component {
                     </Button>
                 </Dropdown>
 
-                <DatePicker  onChange={this.onChange.bind(this)}/>
+                <DatePicker  defaultValue={moment()} onChange={this.onChange.bind(this)}/>
 
                 <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
    

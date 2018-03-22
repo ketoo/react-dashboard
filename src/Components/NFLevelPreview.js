@@ -21,8 +21,8 @@ class NFLevelPreview extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { curZone: "0" }
-        this.state = { curPlat: "0" }
+        this.state = { curZone: null }
+        this.state = { curPlat: null }
         this.state = { curDate: null }
       }
 
@@ -30,11 +30,17 @@ class NFLevelPreview extends React.Component {
         this.setState({curZone: e.key})
     }
     queryClick() {
-        if (this.state.curDate == null || this.state.curZone == null)
+        if (this.state.curZone == null)
         {
-            message.error('Please input date and zone');
+            message.error('Please input zone');
             return;
         }
+        if (this.state.curDate == null)
+        {
+            this.state.curDate = moment();
+        }
+        
+
         queryLevel(this.state.curDate, this.state.curZone);
 
     }
@@ -48,13 +54,11 @@ class NFLevelPreview extends React.Component {
 
   render() {
 
-    var levelZoneData ;
-    var levelTotalData;
+    var levelZoneData;
 
     if (this.props.store.levelData)
     {
         levelZoneData = this.props.store.levelData.levelZoneData;
-        levelTotalData = this.props.store.levelData.levelTotalData;
     }
 
     // 定义度量
@@ -87,21 +91,12 @@ class NFLevelPreview extends React.Component {
                     </Button>
                 </Dropdown>
 
-                <DatePicker  onChange={this.onChange.bind(this)}/>
+                <DatePicker defaultValue={moment()}  onChange={this.onChange.bind(this)}/>
 
                 <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
 
             </Breadcrumb>
-            { levelTotalData &&
-                <Chart height={400} data={levelTotalData} scale={cols} forceFit>
-                    <Axis name="level" />
-                    <Axis name="number"  label={{formatter: val => `${val}`}}/>
-                    <Tooltip crosshairs={{type : "y"}}/>
-                    <Geom type="line" position="level*number" size={2} />
-                    <Geom type='point' position="level*number" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
-                </Chart>
-            }
-
+    
             { levelZoneData && 
                 <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
                 {

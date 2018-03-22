@@ -23,8 +23,8 @@ class NFActivityFlow extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { curZone: '0' }
-        this.state = { curPlat: '0' }
+        this.state = { curZone: null }
+        this.state = { curPlat: null }
         this.state = { curDate: null }
    
         this.state = { activityType: null }
@@ -39,12 +39,11 @@ class NFActivityFlow extends React.Component {
     }
  
     queryClickAdd() {
+
         if (this.state.curDate == null)
         {
-            message.error('Please input  date');
-            return;
+            this.state.curDate = moment();
         }
-
         if (this.state.activityType == null)
         {
             message.error('Please input activityType or taskID');
@@ -118,7 +117,7 @@ class NFActivityFlow extends React.Component {
                 </Dropdown>
 
                 
-                <DatePicker  onChange={this.onChange.bind(this)}/>
+                <DatePicker defaultValue={moment()}  onChange={this.onChange.bind(this)}/>
 
    
             </Breadcrumb>

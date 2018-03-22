@@ -36,15 +36,6 @@ export function queryDailyNewUser(time, platID, zoneID) {
 
 }
 
-export function queryCurrentDailyAvtivelyUser() {
-
-    var myDate = new Date();
-    var month = myDate.getMonth() + 1;
-    var dateStr = myDate.getFullYear() + "-" + month + "-" + myDate.getDate();
-
-    queryDailyAvtivelyUser(dateStr, "0");
-}
-
 export function queryDailyAvtivelyUser(time, zoneID) {
 
     console.log("queryDailyAvtivelyUser", time);
@@ -77,17 +68,7 @@ export function queryDailyAvtivelyUser(time, zoneID) {
   });
 }
 
-
-export function queryCurrentRetention() {
-    var myDate = new Date();
-    var month = myDate.getMonth() + 1;
-    var day = myDate.getDate() - 1;
-    var dateStr = myDate.getFullYear() + "-" + month + "-" + day;
-
-    queryRetention(dateStr, "0");
-}
-
-export function queryRetention(time, platID) {
+export function queryRetention(time, platID, zoneID) {
 
     console.log("queryRetention", time);
 
@@ -97,7 +78,8 @@ export function queryRetention(time, platID) {
     axios.post(url, {
         date: time,
         day: 15,
-        zone: platID
+        plat: platID,
+        zone: zoneID
     }, {
         headers: {
             'Content-Type': 'application/json',
@@ -118,16 +100,6 @@ export function queryRetention(time, platID) {
     message.error(error);
     window.store.isLoading = false;
   });
-}
-
-
-export function queryCurrentLevel() {
-    var myDate = new Date();
-    var month = myDate.getMonth() + 1;
-    var day = myDate.getDate() - 1;
-    var dateStr = myDate.getFullYear() + "-" + month + "-" + day;
-
-    queryLevel(dateStr, "0");
 }
 
 export function queryLevel(time, zoneID) {

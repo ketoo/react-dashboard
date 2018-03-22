@@ -23,8 +23,8 @@ class NFTaskFlow extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { curZone: '0' }
-        this.state = { curPlat: '0' }
+        this.state = { curZone: null }
+        this.state = { curPlat: null }
         this.state = { curDate: null }
    
         this.state = { taskType: null }
@@ -157,7 +157,7 @@ class NFTaskFlow extends React.Component {
 
 
                 
-                <DatePicker  onChange={this.onChange.bind(this)}/>
+                <DatePicker defaultValue={moment()}  onChange={this.onChange.bind(this)}/>
 
    
             </Breadcrumb>

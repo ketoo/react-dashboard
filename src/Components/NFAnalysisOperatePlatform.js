@@ -22,10 +22,11 @@ class NFAnalysisOperatePlatform extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { curZone: "0" }
-        this.state = { curPlat: "0" }
+        this.state = { curZone: null }
+        this.state = { curPlat: null }
         this.state = { curDate: null }
         this.state = { dobz: null }
+
       }
   
     handleMenuClick(e) {   
@@ -33,10 +34,15 @@ class NFAnalysisOperatePlatform extends React.Component {
     }
 
     queryClick() {
-        if (this.state.curZone == null || this.state.curDate == null)
+        if (this.state.curZone == null)
         {
             message.error('Please input zone and date');
             return;
+        }
+
+        if (this.state.curDate == null)
+        {
+            this.state.curDate = moment();
         }
 
         queryOnlineData(this.state.curDate, this.state.curZone);
@@ -44,6 +50,8 @@ class NFAnalysisOperatePlatform extends React.Component {
 
     
     onChange(date, dateString) {
+
+
         if (dateString != null && dateString != "")
         {
             this.setState({curDate: dateString})
@@ -118,7 +126,7 @@ class NFAnalysisOperatePlatform extends React.Component {
                         </Button>
                     </Dropdown>
 
-                    <DatePicker onChange={this.onChange.bind(this)}/>
+                    <DatePicker defaultValue={moment()} onChange={this.onChange.bind(this)}/>
 
                     <Button  type="primary" onClick={this.queryClick.bind(this)}>查询</Button>
             
