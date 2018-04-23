@@ -163,7 +163,24 @@ class NFAnalysisOperatePlatform extends React.Component {
                           <Breadcrumb style={{ margin: '16px 0' }}>
                           </Breadcrumb>
   
-                        <Chart height={400} data={zoneData} scale={colsLine} forceFit>
+                        <Chart height={400} data={zoneData} scale={colsLine} forceFit 
+                            onTooltipChange={(ev)=>{
+                                var items = ev.items; // tooltip显示的项
+                                var origin = items[0]; // 将一条数据改成多条数据
+                                console.log(origin)
+                                items.splice(0); // 清空
+                                items.push({
+                                name: 'time',
+                                marker: true,
+                                value: origin.point._origin.time,
+                                });
+                                items.push({
+                                name: 'value',
+                                marker: true,
+                                value: origin.value,
+                                });
+                            }}
+                            >
                             <Axis name="time" />
                             <Axis name="number"  label={{formatter: val => `${val}`}}/>
                             <Tooltip crosshairs={{type : "y"}}/>

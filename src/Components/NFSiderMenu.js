@@ -26,13 +26,15 @@ class NFSiderMenu extends React.Component {
       handleClick = (e) => {
         //console.log('click ', e.key);
         
+        window.store.clearAllData();
+
         var myDate = new Date();
         var month = myDate.getMonth() + 1;
         var dateStr = myDate.getFullYear() + "-" + month + "-" + myDate.getDate();
     
 
         window.store.setContentType(e.key);
-
+        /*
         if (e.key == 1)
         {
           queryDailyNewUser(dateStr, "0", null);
@@ -53,6 +55,7 @@ class NFSiderMenu extends React.Component {
         if (e.key == 11)
         {
         }
+        */
       }
 
   render() {
