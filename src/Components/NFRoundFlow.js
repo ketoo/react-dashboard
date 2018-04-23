@@ -45,8 +45,7 @@ class NFRoundFlow extends React.Component {
     queryClickAdd() {
         if (this.state.curDate == null)
         {
-            message.error('Please input  date');
-            return;
+            this.state.curDate = moment();
         }
 
         if (this.state.roundType == null && this.state.roundID == null )
@@ -55,7 +54,7 @@ class NFRoundFlow extends React.Component {
             return;
         }
 
-        queryRoundData(this.state.curDate, this.state.roundType, this.state.roundID);
+        queryRoundData(this.state.curDate, this.state.curZone, this.state.roundType, this.state.roundID);
     }
 
 

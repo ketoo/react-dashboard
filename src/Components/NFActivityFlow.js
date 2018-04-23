@@ -50,7 +50,7 @@ class NFActivityFlow extends React.Component {
             return;
         }
 
-        queryActivityData(this.state.curDate, this.state.activityType);
+        queryActivityData(this.state.curDate, this.state.curZone, this.state.activityType);
     }
 
 
@@ -67,7 +67,7 @@ class NFActivityFlow extends React.Component {
        // 数据源
     var totalActvityData;
 
-    if (this.props.store.taskData)
+    if (this.props.store.activityData)
     {
         totalActvityData = this.props.store.activityData;
     }

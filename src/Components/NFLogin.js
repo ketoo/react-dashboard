@@ -15,18 +15,19 @@ const FormItem = Form.Item;
 @observer
 class NFLoginForm extends React.Component {
 
-  @action
-    handleSubmit = (e) => {
-      e.preventDefault();
-      this.props.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
 
-          login(values.userName, values.password);
-        }
-      });
-    }
+        login(values.userName, values.password);
+      }
+    });
+  }
     render() {
+
+  
       const { getFieldDecorator } = this.props.form;
       return (
 

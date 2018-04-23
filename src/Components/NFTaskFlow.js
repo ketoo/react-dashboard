@@ -49,8 +49,7 @@ class NFTaskFlow extends React.Component {
     queryClickAdd() {
         if (this.state.curDate == null)
         {
-            message.error('Please input  date');
-            return;
+            this.state.curDate = moment();
         }
 
         if (this.state.taskType == null && this.state.taskID == null)
@@ -59,14 +58,13 @@ class NFTaskFlow extends React.Component {
             return;
         }
 
-        queryTaskData(this.state.curDate, this.state.taskType, this.state.taskID, 0);
+        queryTaskData(this.state.curDate, this.state.curZone, this.state.taskType, this.state.taskID, 0);
     }
 
     queryClickReduce() {
         if (this.state.curDate == null)
         {
-            message.error('Please input date');
-            return;
+            this.state.curDate = moment();
         }
 
         if (this.state.taskType == null && this.state.taskID == null)
@@ -75,7 +73,7 @@ class NFTaskFlow extends React.Component {
             return;
         }
 
-        queryTaskData(this.state.curDate, this.state.taskType, this.state.taskID, 1);
+        queryTaskData(this.state.curDate, this.state.curZone, this.state.taskType, this.state.taskID, 1);
     }
 
     onChange(date, dateString) {

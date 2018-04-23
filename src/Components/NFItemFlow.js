@@ -58,8 +58,7 @@ class NFItemFlow extends React.Component {
     queryClickAdd() {
         if (this.state.curDate == null)
         {
-            message.error('Please input  date');
-            return;
+            this.state.curDate = moment();
         }
 
         if (this.state.itemType == null && this.state.itemID == null)

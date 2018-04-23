@@ -219,7 +219,7 @@ export function queryItemData(time, zoneID, type, id, reason, subReason, add) {
 }
 
 
-export function queryTaskData(time, type, id, add) {
+export function queryTaskData(time, zoneID, type, id, add) {
     console.log("queryTaskData time", time);
     console.log("queryTaskData type", type);
     console.log("queryTaskData id", id);
@@ -230,6 +230,7 @@ export function queryTaskData(time, type, id, add) {
     axios.post(url, {
         date: time,
         day: 15,
+        zone: zoneID,
         type: type,
         id:id,
         add:add
@@ -255,7 +256,7 @@ export function queryTaskData(time, type, id, add) {
   });
 }
 
-export function queryActivityData(time, type) {
+export function queryActivityData(time, zoneID, type) {
     console.log("queryActivityData time", time);
     console.log("queryActivityData type", type);
 
@@ -265,6 +266,7 @@ export function queryActivityData(time, type) {
     axios.post(url, {
         date: time,
         day: 15,
+        zone: zoneID,
         type: type,
     }, {
         headers: {
@@ -274,7 +276,7 @@ export function queryActivityData(time, type) {
         }
     })
     .then(function (response) {
-        console.log("queryActivityData", response.data);
+        console.log("queryActivityData1", response.data);
         
         {response.data.code === 0 && 
             window.store.setActivityData(response.data.activityData);
@@ -289,7 +291,7 @@ export function queryActivityData(time, type) {
   });
 }
 
-export function queryRoundData(time, type, id) {
+export function queryRoundData(time, zoneID, type, id) {
     console.log("queryRoundData time", time);
     console.log("queryRoundData type", type);
 
@@ -299,6 +301,7 @@ export function queryRoundData(time, type, id) {
     axios.post(url, {
         date: time,
         day: 15,
+        zone: zoneID,
         type: type,
         id: id
     }, {
