@@ -37,6 +37,21 @@ class NFRootModel {
   @observable roundData;
   
 
+
+  @action
+  clearViewData() {
+    this.onlineData = null;
+    this.newUserData = null;
+    this.dailyActivelyUserData = null;
+    this.dailyRetentionData = null;
+    this.levelData = null;
+    this.itemData = null;
+    this.taskData = null;
+    this.activityData = null;
+    this.roundData = null;
+
+  }
+
   @action
   clearAllData() {
     this.isLoggedIn = false;
@@ -45,11 +60,16 @@ class NFRootModel {
     this.contentType = 0;
     this.isLoading = false;
   
+    this.onlineData = null;
     this.newUserData = null;
     this.dailyActivelyUserData = null;
     this.dailyRetentionData = null;
+    this.levelData = null;
+    this.itemData = null;
+    this.taskData = null;
+    this.activityData = null;
+    this.roundData = null;
   }
-
 
   @action
   setPlat(data) {

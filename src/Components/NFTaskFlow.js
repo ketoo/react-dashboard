@@ -57,6 +57,11 @@ class NFTaskFlow extends React.Component {
             message.error('Please input taskType or taskID');
             return;
         }
+        if (this.state.curZone == null)
+        {
+            message.error('Please input Zone');
+            return;
+        }
 
         queryTaskData(this.state.curDate, this.state.curZone, this.state.taskType, this.state.taskID, 0);
     }
@@ -72,7 +77,13 @@ class NFTaskFlow extends React.Component {
             message.error('Please input taskType or taskID');
             return;
         }
+        if (this.state.curZone == null)
+        {
+            message.error('Please input Zone');
+            return;
+        }
 
+        
         queryTaskData(this.state.curDate, this.state.curZone, this.state.taskType, this.state.taskID, 1);
     }
 

@@ -26,7 +26,7 @@ class NFSiderMenu extends React.Component {
       handleClick = (e) => {
         //console.log('click ', e.key);
         
-        window.store.clearAllData();
+        window.store.clearViewData();
 
         var myDate = new Date();
         var month = myDate.getMonth() + 1;

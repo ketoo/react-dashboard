@@ -66,6 +66,11 @@ class NFItemFlow extends React.Component {
             message.error('Please input itemType or itemID');
             return;
         }
+        if (this.state.curZone == null)
+        {
+            message.error('Please input Zone');
+            return;
+        }
 
         queryItemData(this.state.curDate, this.state.curZone, this.state.itemType, this.state.itemID, this.state.itemReason, this.state.itemSubReason, 1);
     }
@@ -83,6 +88,12 @@ class NFItemFlow extends React.Component {
             return;
         }
 
+        if (this.state.curZone == null)
+        {
+            message.error('Please input Zone');
+            return;
+        }
+        
         queryItemData(this.state.curDate, this.state.curZone, this.state.itemType, this.state.itemID, this.state.itemReason, this.state.itemSubReason, 0);
     }
 

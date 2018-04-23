@@ -49,7 +49,11 @@ class NFActivityFlow extends React.Component {
             message.error('Please input activityType or taskID');
             return;
         }
-
+        if (this.state.curZone == null)
+        {
+            message.error('Please input Zone');
+            return;
+        }
         queryActivityData(this.state.curDate, this.state.curZone, this.state.activityType);
     }
 

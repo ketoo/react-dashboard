@@ -53,7 +53,12 @@ class NFRoundFlow extends React.Component {
             message.error('Please input roundType or roundID');
             return;
         }
-
+        if (this.state.curZone == null)
+        {
+            message.error('Please input Zone');
+            return;
+        }
+        
         queryRoundData(this.state.curDate, this.state.curZone, this.state.roundType, this.state.roundID);
     }
 

@@ -40,7 +40,7 @@ class NFDailyRetention extends React.Component {
     queryClick() {
         if (this.state.curPlat == null && this.state.curZone == null)
         {
-            message.error('Please input curPlat or date');
+            message.error('Please input curPlat or curZone');
             return;
         }
 
