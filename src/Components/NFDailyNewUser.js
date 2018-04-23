@@ -123,7 +123,7 @@ class NFDailyNewUser extends React.Component {
                     <Axis name="time" />
                     <Axis name="todayNumber"/>
                     <Tooltip/>
-                    <Geom type="interval" position="time*todayNumber" color="todayNumber" />
+                    <Geom type="interval" position="time*todayNumber" color="genre" />
                 </Chart>
             }
 

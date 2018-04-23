@@ -36,7 +36,7 @@ class NFAnalysisOperatePlatform extends React.Component {
     queryClick() {
         if (this.state.curZone == null)
         {
-            message.error('Please input zone and date');
+            message.error('Please input zone');
             return;
         }
 
@@ -73,8 +73,8 @@ class NFAnalysisOperatePlatform extends React.Component {
 
          // 定义度量
          const colsLine = {
-            number: { alias: 'Number' },
-            time: { alias: 'Time' }
+            number: { alias: 'number' },
+            time: { alias: 'time' }
         };
        
         const menu = (

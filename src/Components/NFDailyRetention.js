@@ -129,7 +129,7 @@ class NFDailyRetention extends React.Component {
                     <Axis name="day"   label={{formatter: val => `${val} 日留存`}}/>
                     <Axis name="rate" label={{formatter: val => `${val}`}}/>
                     <Tooltip/>
-                    <Geom type="interval" position="day*rate" color="rate" />
+                    <Geom type="interval" position="day*rate" color="genre" />
                 </Chart>
             }
             
