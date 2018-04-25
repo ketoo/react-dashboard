@@ -185,7 +185,6 @@ class NFAnalysisOperatePlatform extends React.Component {
                             <Axis name="number"  label={{formatter: val => `${val}`}}/>
                             <Tooltip crosshairs={{type : "y"}}/>
                             <Geom type="line" position="time*number" size={2} />
-                            <Geom type='point' position="time*number" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
                         </Chart>
                       </div>
                       }
