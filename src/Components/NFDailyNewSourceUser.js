@@ -64,11 +64,18 @@ class NFDailyNewSourceUser extends React.Component {
             sourceNewUser = this.props.store.newUserSourceData.sourceUserData;
 
         }
-        // 定义度量
-        const cols = {
-            todayNumber: { alias: '新用户 New users' },
-            time: { alias: 'New User Today' }
-        };
+       
+        const scale = {
+            value: {
+              alias: 'The Share Price in Dollars',
+              formatter: function (val) {
+                return val;
+              }
+            },
+            year: {
+              range: [0, 1]
+            }
+          }
         const menu = (
             <Menu onClick={this.handleMenuClick.bind(this)}>
             {this.props.store.source &&
@@ -79,21 +86,29 @@ class NFDailyNewSourceUser extends React.Component {
             </Menu>
           );
           
-            var ds = new DataSet();
-
-            var dv;
+            var dv1;
             if (sourceNewUser)
             {
-                dv = ds.createView().source(sourceNewUser);
-                dv.transform({
-                type: 'fold',
-                fields: [ 'todayNumber', 'todayNumberIos', 'todayNumberAnd' ], // 展开字段集
-                key: 'time', // key字段
-                value: 'number', // value字段
+                dv1 = new DataSet.View().source(sourceNewUser);
+                dv1.transform({
+                    type: 'fold',
+                    fields: ['todayNumber', 'todayNumberIos', 'todayNumberAnd'],
+                    key: 'type',
+                    value: 'value',
                 });
             }
             
-
+            var dv2;
+            if (sourceNewUser)
+            {
+                dv2 = new DataSet.View().source(sourceNewUser);
+                dv2.transform({
+                    type: 'fold',
+                    fields: ['totalNumber', 'totalNumberIos', 'totalNumberAnd'],
+                    key: 'type',
+                    value: 'value',
+                });
+            }
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
@@ -112,40 +127,23 @@ class NFDailyNewSourceUser extends React.Component {
             </Breadcrumb>
 
             { dv && 
-                <Chart height={400} data={dv} scale={cols} forceFit>
+              <Chart height={400} data={dv} padding={'auto'} scale={scale} forceFit>
+              <Tooltip crosshairs />
+              <Axis />
+              <Legend />
+              <Geom type="area" position="time*value" color="type" shape='smooth' />
+              <Geom type="line" position="time*value" color="type" shape='smooth'  size={2} />
+            </Chart>
+            }
+            { dv2 && 
+                <Chart height={400} data={dv2} padding={'auto'} scale={scale} forceFit>
+                <Tooltip crosshairs />
+                <Axis />
                 <Legend />
-                <Axis name="time" />
-                <Axis name="number" label={{formatter: val => `${val}`}}/>
-                <Tooltip crosshairs={{type : "y"}}/>
-                <Geom type="line" position="time*number" size={2} color={'city'} />
-                <Geom type='point' position="time*todayNumber" size={4} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
+                <Geom type="area" position="time*value" color="type" shape='smooth' />
+                <Geom type="line" position="time*value" color="type" shape='smooth'  size={2} />
               </Chart>
-            }
-
-            {/* hashmap<string, list<object>>
-            { sourceNewUser &&
-                Object.keys(sourceNewUser).map((key) => (  
-                    <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
-                        { 
-                        <div>
-                            <Breadcrumb style={{ margin: '16px 0' }}>
-                                <Breadcrumb.Item>{"渠道 plat: " + key}</Breadcrumb.Item>
-                            </Breadcrumb>
-
-                            <Chart height={320} width={900} data={sourceNewUser[key]} scale={cols}>
-                            <Legend />
-                            <Axis name="time" />
-                            <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>
-                            <Tooltip crosshairs={{type : "y"}}/>
-                            <Geom type="line" position="time*todayNumber" size={2} color={'city'} />
-                            <Geom type='point' position="time*todayNumber" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
-                            </Chart>
-                        </div>
-                        }
-                    </div> 
-                  )) 
-            }
-            */}
+              }
                 
           </Content>
     );
