@@ -13,7 +13,7 @@ import { observer } from "mobx-react";
 import moment from 'moment';
 import { DatePicker } from 'antd';
 
-import {queryDailyNewUser, queryCurrentDailyNewUser} from '../Services/NFBusinessAPI';
+import {queryDailyZoneNewUser} from '../Services/NFBusinessAPI';
 import NFRootModel from '../Models/NFRootModel';
 
 const { Content } = Layout;
@@ -24,24 +24,17 @@ class NFDailyNewUser extends React.Component {
         super(props);
 
         this.state = { curZone: null }
-        this.state = { curSource: null }
         this.state = { curDate: null }
       }
 
-    handleMenuClick(e) {   
-        this.setState({curSource: e.key})
-        this.setState({curZone: null})
-    }
-
     handleMenuZoneClick(e) {   
-        this.setState({curSource: null})
         this.setState({curZone: e.key})
     }
 
     queryClick() {
-        if (this.state.curSource == null && this.state.curZone == null)
+        if (this.state.curZone == null)
         {
-            message.error('Please input curSource or curZone');
+            message.error('Please input curZone');
             return;
         }
 
@@ -50,7 +43,7 @@ class NFDailyNewUser extends React.Component {
             this.state.curDate = moment();
         }
         
-        queryDailyNewUser(this.state.curDate, this.state.curSource, this.state.curZone);
+        queryDailyZoneNewUser(this.state.curDate, this.state.curZone);
     }
 
     onChange(date, dateString) {
@@ -64,11 +57,11 @@ class NFDailyNewUser extends React.Component {
   render() {
 
        // 数据源
-    var platNewUser;
+    var zoneUserData;
 
     if (this.props.store.newUserZoneData)
     {
-        platNewUser = this.props.store.newUserZoneData.platUserData;
+        zoneUserData = this.props.store.newUserZoneData.zoneUserData;
 
     }
         // 定义度量
@@ -76,15 +69,7 @@ class NFDailyNewUser extends React.Component {
             todayNumber: { alias: '新用户 New users' },
             time: { alias: 'New User Today' }
         };
-        const menu = (
-            <Menu onClick={this.handleMenuClick.bind(this)}>
-            {this.props.store.source &&
-                this.props.store.source.map((key) => (  
-                    <Menu.Item key={key}>渠道 {key}</Menu.Item>
-                )) 
-            }
-            </Menu>
-          );
+        
           const menuZone = (
             <Menu onClick={this.handleMenuZoneClick.bind(this)}>
             {this.props.store.zone &&
@@ -98,13 +83,7 @@ class NFDailyNewUser extends React.Component {
     return (
       <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>新增用户总览 Overview</Breadcrumb.Item>
-
-                <Dropdown overlay={menu}>
-                    <Button style={{ marginLeft: 8 }}>
-                       渠道 {this.state.curPlat} <Icon type="down" />
-                    </Button>
-                </Dropdown>
+                <Breadcrumb.Item>新增用户总览-区服 ZoneOverview</Breadcrumb.Item>
 
                 <Dropdown overlay={menuZone}>
                     <Button style={{ marginLeft: 8 }}>
@@ -118,40 +97,28 @@ class NFDailyNewUser extends React.Component {
    
             </Breadcrumb>
 
-            { platNewUser && 
-                <Chart height={400} data={platNewUser} scale={cols} forceFit>
+            { zoneUserData && 
+                <Chart height={400} data={zoneUserData} scale={cols} forceFit>
                     <Axis name="time" />
                     <Axis name="todayNumber"/>
                     <Tooltip/>
                     <Geom type="line" position="time*number" size={2} />
                     <Geom type='point' position="time*todayNumber" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
                 </Chart>
-            }
 
-            {/* hashmap<string, list<object>>
-            { platNewUser &&
-                Object.keys(platNewUser).map((key) => (  
-                    <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
-                        { 
-                        <div>
-                            <Breadcrumb style={{ margin: '16px 0' }}>
-                                <Breadcrumb.Item>{"渠道 plat: " + key}</Breadcrumb.Item>
-                            </Breadcrumb>
-
-                            <Chart height={320} width={900} data={platNewUser[key]} scale={cols}>
-                            <Legend />
-                            <Axis name="time" />
-                            <Axis name="todayNumber" label={{formatter: val => `${val}`}}/>
-                            <Tooltip crosshairs={{type : "y"}}/>
-                            <Geom type="line" position="time*todayNumber" size={2} color={'city'} />
-                            <Geom type='point' position="time*todayNumber" size={6} shape={'circle'} color={'city'} style={{ stroke: '#fff', lineWidth: 1}} />
-                            </Chart>
-                        </div>
-                        }
-                    </div> 
-                  )) 
+                
             }
-            */}
+            { zoneUserData && 
+                <Chart height={400} data={zoneUserData} scale={cols} forceFit>
+                    <Axis name="time" />
+                    <Axis name="totalNumber"/>
+                    <Tooltip/>
+                    <Geom type="line" position="time*number" size={2} />
+                    <Geom type='point' position="time*totalNumber" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
+                </Chart>
+
+                
+            }
                 
           </Content>
     );

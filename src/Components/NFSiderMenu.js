@@ -81,10 +81,11 @@ class NFSiderMenu extends React.Component {
               key="sub1"
               title={<span><Icon type="user" /><span>总览 Overview</span></span>}
             >
-              <Menu.Item key="1">新增 DNW </Menu.Item>
-              <Menu.Item key="2">日活 DAU </Menu.Item>
-              <Menu.Item key="3">日留存 DR </Menu.Item>
-              <Menu.Item key="4">等级分布 LD </Menu.Item>
+              <Menu.Item key="1">新增 ZONE DNW </Menu.Item>
+              <Menu.Item key="2">新增 SOURCE DNW </Menu.Item>
+              <Menu.Item key="3">日活 DAU </Menu.Item>
+              <Menu.Item key="4">日留存 DR </Menu.Item>
+              <Menu.Item key="5">等级分布 LD </Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub2"

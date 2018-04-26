@@ -53,7 +53,7 @@ export function queryDailySourceNewUser(time, sourceID) {
         console.log("queryDailyNewUser", response.data);
         
         {response.data.code === 0 && 
-            window.store.setNewUserZoneData(response.data);
+            window.store.setNewUserSourceData(response.data);
         }
         window.store.isLoading = false;
   })

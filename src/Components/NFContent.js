@@ -6,6 +6,7 @@ import NFLayout from './NFLayout';
 import NFLogin from './NFLogin';
 import NFAnalysisOperatePlatform from './NFAnalysisOperatePlatform';
 import NFDailyNewUser from './NFDailyNewUser';
+import NFDailyNewSourceUser from './NFDailyNewSourceUser';
 import NFDailyActiveUser from './NFDailyActiveUser';
 import NFDailyRetention from './NFDailyRetention';
 import NFLevelPreview from './NFLevelPreview';
@@ -40,12 +41,15 @@ class NFContent extends React.Component {
           <NFDailyNewUser  store={this.props.store}/>
         }
         { contentType == 2 && 
-          <NFDailyActiveUser  store={this.props.store}/>
+          <NFDailyNewSourceUser  store={this.props.store}/>
         }
         { contentType == 3 && 
+          <NFDailyActiveUser  store={this.props.store}/>
+        }
+        { contentType == 4 && 
           <NFDailyRetention  store={this.props.store}/>
         } 
-        { contentType == 4 && 
+        { contentType == 5 && 
           <NFLevelPreview  store={this.props.store}/>
         }
         { contentType == 11 && 
