@@ -3,7 +3,7 @@ import { observable, observer, computed, action } from "mobx";
 class NFRootModel {
 
   @observable host;
-  @observable host_dev = "http://leetframe.com:5000";
+  @observable host_dev = "http://127.0.0.1:5000";
   //@observable host_dev = "http://leetframe.com:5000";
   @observable host_pro = "http://leetframe.com:5000";
 
@@ -78,12 +78,6 @@ class NFRootModel {
   }
 
   @action
-  setPlat(data) {
-    this.plat =data;
-  }
-
-
-  @action
   setZone(data) {
     this.zone =data;
   }
@@ -99,19 +93,9 @@ class NFRootModel {
     }
   }
 
-  @computed
-  get loginState() {
-    return this.isLoggedIn;
-  }
-
   @action
   setLoginState(isLogin) {
     this.isLoggedIn =isLogin;
-  }
-
-  @computed
-  get getContentType() {
-    return this.contentType;
   }
 
   @action
@@ -119,20 +103,9 @@ class NFRootModel {
     this.contentType =type;
   }
 
-
-  @computed
-  get getItemIDList() {
-    return this.itemIDList;
-  }
-
   @action
   setItemIDList(data) {
     this.itemIDList =data;
-  }
-
-  @computed
-  get getItemTypeList() {
-    return this.itemTypeList;
   }
 
   @action
@@ -140,29 +113,14 @@ class NFRootModel {
     this.itemTypeList =data;
   }
 
-  @computed
-  get getReasonList() {
-    return this.reasonList;
-  }
-
   @action
   setReasonList(data) {
     this.reasonList =data;
   }
 
-  @computed
-  get getSubReasonList() {
-    return this.subReasonList;
-  }
-
   @action
   setSubReasonList(data) {
     this.subReasonList =data;
-  }
-
-  @computed
-  get getActivityTypeList() {
-    return this.activityTypeList;
   }
 
   @action
@@ -190,13 +148,8 @@ class NFRootModel {
   }
 
   @action
-  setSourceList(data) {
+  setSource(data) {
     this.source =data;
-  }
-
-  @computed
-  get getNewUserZoneData() {
-    return this.newUserZoneData;
   }
 
   @action
@@ -204,19 +157,9 @@ class NFRootModel {
     this.newUserZoneData =data;
   }
 
-  @computed
-  get getDailyActivelyUserData() {
-    return this.dailyActivelyUserData;
-  }
-
   @action
   setDailyActivelyUserData(data) {
     this.dailyActivelyUserData =data;
-  }
-
-  @computed
-  get getDailyRetentionData() {
-    return this.dailyRetentionData;
   }
 
   @action
@@ -231,11 +174,7 @@ class NFRootModel {
 
   @action
   setOnlineData(data) {
-
-    console.log(this.onlineData)
     this.onlineData =data;
-
-    console.log(this.onlineData)
   }
 
   @action

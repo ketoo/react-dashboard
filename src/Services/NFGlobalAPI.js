@@ -240,8 +240,8 @@ export function querySourceList() {
     })
     .then(function (response) {
         {response.data.code === 0 && 
-            window.store.setSourceList(response.data.data);
-            console.log("setSourceList", response.data.data)
+            window.store.setSource(response.data.data);
+            console.log("setSource", response.data.data)
         }
   })
   .catch(function (error) {

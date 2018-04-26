@@ -4,15 +4,14 @@ import axios from 'axios';
 import NFRootModel from '../Models/NFRootModel';
 import { Button, Dropdown, Icon, message } from 'antd';
 
-export function queryDailyNewUser(time, platID, zoneID) {
+export function queryDailyZoneNewUser(time, zoneID) {
 
     window.store.isLoading = true;
 
-    var url = window.store.host + "/analysis/newuser"
+    var url = window.store.host + "/analysis/newzoneuser"
     axios.post(url, {
         date: time,
         day: 15,
-        plat: platID,
         zone: zoneID
     }, {
         headers: {
@@ -33,9 +32,36 @@ export function queryDailyNewUser(time, platID, zoneID) {
     message.error(error);
     window.store.isLoading = false;
   });
-
 }
+export function queryDailySourceNewUser(time, sourceID) {
 
+    window.store.isLoading = true;
+
+    var url = window.store.host + "/analysis/newsourceuser"
+    axios.post(url, {
+        date: time,
+        day: 15,
+        source: sourceID
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
+        }
+    })
+    .then(function (response) {
+        console.log("queryDailyNewUser", response.data);
+        
+        {response.data.code === 0 && 
+            window.store.setNewUserZoneData(response.data);
+        }
+        window.store.isLoading = false;
+  })
+  .catch(function (error) {
+    message.error(error);
+    window.store.isLoading = false;
+  });
+}
 export function queryDailyAvtivelyUser(time, zoneID) {
 
     console.log("queryDailyAvtivelyUser", time);

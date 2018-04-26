@@ -24,24 +24,24 @@ class NFDailyNewUser extends React.Component {
         super(props);
 
         this.state = { curZone: null }
-        this.state = { curPlat: null }
+        this.state = { curSource: null }
         this.state = { curDate: null }
       }
 
     handleMenuClick(e) {   
-        this.setState({curPlat: e.key})
+        this.setState({curSource: e.key})
         this.setState({curZone: null})
     }
 
     handleMenuZoneClick(e) {   
-        this.setState({curPlat: null})
+        this.setState({curSource: null})
         this.setState({curZone: e.key})
     }
 
     queryClick() {
-        if (this.state.curPlat == null && this.state.curZone == null)
+        if (this.state.curSource == null && this.state.curZone == null)
         {
-            message.error('Please input curPlat or curZone');
+            message.error('Please input curSource or curZone');
             return;
         }
 
@@ -50,7 +50,7 @@ class NFDailyNewUser extends React.Component {
             this.state.curDate = moment();
         }
         
-        queryDailyNewUser(this.state.curDate, this.state.curPlat, this.state.curZone);
+        queryDailyNewUser(this.state.curDate, this.state.curSource, this.state.curZone);
     }
 
     onChange(date, dateString) {
