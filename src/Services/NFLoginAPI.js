@@ -4,7 +4,7 @@ import axios from 'axios';
 import NFRootModel from '../Models/NFRootModel';
 import {queryCurrentOnlineData} from '../Services/NFBusinessAPI';
 import {queryCurrentZone, queryCurrentPlat} from '../Services/NFGlobalAPI';
-import {queryItemTypeList, queryItemIDList, queryReasonList, querySubReasonList, queryActivityTypeList} from '../Services/NFGlobalAPI';
+import {queryItemTypeList, queryItemIDList, queryReasonList, querySubReasonList, queryActivityTypeList, querySourceList} from '../Services/NFGlobalAPI';
 import {queryTaskIDList, queryTaskTypeList} from '../Services/NFGlobalAPI';
 import {queryRoundIDList, queryRoundTypeList} from '../Services/NFGlobalAPI';
 import { message, Button } from 'antd'
@@ -44,7 +44,6 @@ export function login(userName, password) {
         window.store.jwt = response.data.jwt;
 
         queryCurrentZone();
-        queryCurrentPlat();
   
         queryItemTypeList();
         queryItemIDList();
@@ -55,6 +54,7 @@ export function login(userName, password) {
         queryTaskTypeList();
         queryRoundIDList();
         queryRoundTypeList();
+        querySourceList();
   
         queryCurrentOnlineData();
       }

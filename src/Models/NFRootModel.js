@@ -3,7 +3,7 @@ import { observable, observer, computed, action } from "mobx";
 class NFRootModel {
 
   @observable host;
-  @observable host_dev = "http://127.0.0.1:5000";
+  @observable host_dev = "http://leetframe.com:5000";
   //@observable host_dev = "http://leetframe.com:5000";
   @observable host_pro = "http://leetframe.com:5000";
 
@@ -15,7 +15,7 @@ class NFRootModel {
   @observable isLoading = false;
 
   @observable zone;
-  @observable plat;
+  @observable source;
   @observable itemIDList;
   @observable itemTypeList;
   @observable reasonList;
@@ -183,6 +183,10 @@ class NFRootModel {
     this.roundIDList =data;
   }
 
+  @action
+  setSourceList(data) {
+    this.source =data;
+  }
 
   @computed
   get getNewUserData() {
@@ -221,7 +225,11 @@ class NFRootModel {
 
   @action
   setOnlineData(data) {
+
+    console.log(this.onlineData)
     this.onlineData =data;
+
+    console.log(this.onlineData)
   }
 
   @action

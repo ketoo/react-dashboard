@@ -84,8 +84,8 @@ class NFDailyRetention extends React.Component {
 
         const menu = (
             <Menu onClick={this.handleMenuClick.bind(this)}>
-              {this.props.store.plat &&
-                this.props.store.plat.map((key) => (  
+              {this.props.store.source &&
+                this.props.store.source.map((key) => (  
                     <Menu.Item key={key}>渠道 {key}</Menu.Item>
                 )) 
             }

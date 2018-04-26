@@ -27,28 +27,6 @@ export function queryCurrentZone() {
 
 }
 
-export function queryCurrentPlat() {
-    var url = window.store.host + "/analysis/plat"
-    axios.post(url, {
-    }, {
-        headers: {
-            'Content-Type': 'application/json',
-            'UserID': window.store.userID,
-            'Token': window.store.jwt
-        }
-    })
-    .then(function (response) {
-        {response.data.code === 0 && 
-            window.store.setPlat(response.data.data);
-            console.log("setPlat", response.data.data)
-        }
-  })
-  .catch(function (error) {
-    message.error(error);
-  });
-
-}
-
 export function queryItemTypeList() {
     var url = window.store.host + "/analysis/itemtypelist"
     axios.post(url, {
@@ -242,6 +220,28 @@ export function queryRoundIDList() {
         {response.data.code === 0 && 
             window.store.setRoundIDList(response.data.data);
             console.log("setRoundIDList", response.data.data)
+        }
+  })
+  .catch(function (error) {
+    message.error(error);
+  });
+
+}
+
+export function querySourceList() {
+    var url = window.store.host + "/analysis/source"
+    axios.post(url, {
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+            'UserID': window.store.userID,
+            'Token': window.store.jwt
+        }
+    })
+    .then(function (response) {
+        {response.data.code === 0 && 
+            window.store.setSourceList(response.data.data);
+            console.log("setSourceList", response.data.data)
         }
   })
   .catch(function (error) {

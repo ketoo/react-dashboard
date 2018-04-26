@@ -60,14 +60,19 @@ class NFAnalysisOperatePlatform extends React.Component {
 
   render() {
            // 数据源
-           var totalData ;
+           var totalData;
            var zoneData;
-       
+
+           var totalNewData;
+           var zoneNewData;
+
            if (this.props.store.onlineData)
            {
                totalData = this.props.store.onlineData.totalOnlineData;
                zoneData = this.props.store.onlineData.zoneOnlineData;
        
+               totalNewData = this.props.store.onlineData.totalNewData;
+               zoneNewData = this.props.store.onlineData.zoneNewData;
            }
   
 
@@ -144,16 +149,55 @@ class NFAnalysisOperatePlatform extends React.Component {
                 </Chart>
                 }
 
-            {/*在线信息，只能注册量*/}
-
+            {/*在线信息，总共注册量*/}
              {totalData && 
-            <Chart height={400} data={totalData} scale={colsLine} forceFit>
-                 <Axis name="time" />
-                 <Axis name="number"  label={{formatter: val => `${val}`}}/>
-                 <Tooltip crosshairs={{type : "y"}}/>
-                 <Geom type="line" position="time*number" size={2} />
-                 <Geom type='point' position="time*number" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
-             </Chart>
+                    <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+                    { 
+                        <div>
+                            <Breadcrumb style={{ margin: '16px 0' }}>
+                                <Button style={{ marginLeft: 8 }}>
+                                    IOS
+                                </Button>
+                            </Breadcrumb>
+
+                        <Chart height={400} data={totalData} scale={colsLine} forceFit 
+                            onTooltipChange={(ev)=>{
+                                var items = ev.items; // tooltip显示的项
+                                var origin = items[0]; // 将一条数据改成多条数据
+                                console.log(origin)
+                                items.splice(0); // 清空
+                                items.push({
+                                name: 'time',
+                                marker: true,
+                                value: origin.point._origin.time,
+                                });
+                                items.push({
+                                name: 'value',
+                                marker: true,
+                                value: origin.value,
+                                });
+                            }}
+                            >
+                            <Axis name="time" />
+                            <Axis name="number"  label={{formatter: val => `${val}`}}/>
+                            <Tooltip crosshairs={{type : "y"}}/>
+                            <Geom type="line" position="time*number" size={2} />
+
+                            </Chart>
+
+                            {totalNewData && <div>
+                            <Chart height={400} data={totalNewData} padding={'auto'} scale={colsLine} forceFit>
+                                <Tooltip crosshairs />
+                                <Axis />
+                                <Legend />
+                                <Geom type="area" position="year*value" color="type" shape='smooth' />
+                                <Geom type="line" position="year*value" color="type" shape='smooth'  size={2} />
+                            </Chart>
+                            </div>
+                            }
+                        </div>
+                        }
+                    </div> 
              }
 
              {zoneData &&
@@ -161,6 +205,14 @@ class NFAnalysisOperatePlatform extends React.Component {
                       { 
                       <div>
                           <Breadcrumb style={{ margin: '16px 0' }}>
+                                {totalData & <div>
+                                {
+                                    <Button style={{ marginLeft: 8 }}>
+                                        Android
+                                    </Button>
+                                }
+                                    </div>
+                                }
                           </Breadcrumb>
   
                         <Chart height={400} data={zoneData} scale={colsLine} forceFit 
