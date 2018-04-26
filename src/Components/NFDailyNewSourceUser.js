@@ -126,8 +126,8 @@ class NFDailyNewSourceUser extends React.Component {
    
             </Breadcrumb>
 
-            { dv && 
-              <Chart height={400} data={dv} padding={'auto'} scale={scale} forceFit>
+            { dv1 && 
+              <Chart height={400} data={dv1} padding={'auto'} scale={scale} forceFit>
               <Tooltip crosshairs />
               <Axis />
               <Legend />
