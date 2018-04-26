@@ -87,8 +87,10 @@ class NFDailyNewSourceUser extends React.Component {
           );
           
             var dv1;
-            if (sourceNewUser)
+            if (sourceNewUser && sourceNewUser.Length > 0)
             {
+                console.log("sourceNewUser", sourceNewUser);
+
                 dv1 = new DataSet.View().source(sourceNewUser);
                 dv1.transform({
                     type: 'fold',
@@ -99,7 +101,7 @@ class NFDailyNewSourceUser extends React.Component {
             }
             
             var dv2;
-            if (sourceNewUser)
+            if (sourceNewUser && sourceNewUser.Length > 0)
             {
                 dv2 = new DataSet.View().source(sourceNewUser);
                 dv2.transform({
