@@ -66,9 +66,9 @@ class NFDailyNewUser extends React.Component {
        // 数据源
     var platNewUser;
 
-    if (this.props.store.newUserData)
+    if (this.props.store.newUserZoneData)
     {
-        platNewUser = this.props.store.newUserData.platUserData;
+        platNewUser = this.props.store.newUserZoneData.platUserData;
 
     }
         // 定义度量

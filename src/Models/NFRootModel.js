@@ -27,7 +27,9 @@ class NFRootModel {
   @observable roundIDList;
 
   @observable onlineData;
-  @observable newUserData;
+  @observable newUserZoneData;
+  @observable newUserPlatData;
+  @observable newUserSourceData;
   @observable dailyActivelyUserData;
   @observable dailyRetentionData;
   @observable levelData;
@@ -41,7 +43,9 @@ class NFRootModel {
   @action
   clearViewData() {
     this.onlineData = null;
-    this.newUserData = null;
+    this.newUserZoneData = null;
+    this.newUserPlatData = null;
+    this.newUserSourceData = null;
     this.dailyActivelyUserData = null;
     this.dailyRetentionData = null;
     this.levelData = null;
@@ -61,7 +65,9 @@ class NFRootModel {
     this.isLoading = false;
   
     this.onlineData = null;
-    this.newUserData = null;
+    this.newUserZoneData = null;
+    this.newUserPlatData = null;
+    this.newUserSourceData = null;
     this.dailyActivelyUserData = null;
     this.dailyRetentionData = null;
     this.levelData = null;
@@ -189,13 +195,13 @@ class NFRootModel {
   }
 
   @computed
-  get getNewUserData() {
-    return this.newUserData;
+  get getNewUserZoneData() {
+    return this.newUserZoneData;
   }
 
   @action
-  setNewUserData(data) {
-    this.newUserData =data;
+  setNewUserZoneData(data) {
+    this.newUserZoneData =data;
   }
 
   @computed
@@ -252,5 +258,14 @@ class NFRootModel {
     this.roundData =data;
   }
   
+  @action
+  setNewUserPlatData(data) {
+    this.newUserPlatData =data;
+  }
+
+  @action
+  setNewUserSourceData(data) {
+    this.newUserSourceData =data;
+  }
 }
 export default NFRootModel;

@@ -25,7 +25,7 @@ export function queryDailyNewUser(time, platID, zoneID) {
         console.log("queryDailyNewUser", response.data);
         
         {response.data.code === 0 && 
-            window.store.setNewUserData(response.data);
+            window.store.setNewUserZoneData(response.data);
         }
         window.store.isLoading = false;
   })
