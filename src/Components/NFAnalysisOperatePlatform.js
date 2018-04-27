@@ -204,17 +204,6 @@ class NFAnalysisOperatePlatform extends React.Component {
                       <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
                       { 
                       <div>
-                          <Breadcrumb style={{ margin: '16px 0' }}>
-                                {totalData & <div>
-                                {
-                                    <Button style={{ marginLeft: 8 }}>
-                                        Android
-                                    </Button>
-                                }
-                                    </div>
-                                }
-                          </Breadcrumb>
-  
                         <Chart height={400} data={zoneData} scale={colsLine} forceFit 
                             onTooltipChange={(ev)=>{
                                 var items = ev.items; // tooltip显示的项

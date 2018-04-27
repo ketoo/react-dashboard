@@ -69,6 +69,19 @@ class NFDailyNewSourceUser extends React.Component {
             todayNumber: { alias: '新用户 New users' },
             time: { alias: 'New User Today' }
         };
+
+        const scale = {
+            value: {
+              alias: 'The Share Price in Dollars',
+              formatter: function (val) {
+                return val;
+              }
+            },
+            year: {
+              range: [0, 1]
+            }
+          }
+
         const menu = (
             <Menu onClick={this.handleMenuClick.bind(this)}>
             {this.props.store.source &&
@@ -79,17 +92,23 @@ class NFDailyNewSourceUser extends React.Component {
             </Menu>
           );
           
-            var ds = new DataSet();
-
             var dv;
             if (sourceNewUser)
             {
-                dv = ds.createView().source(sourceNewUser);
+                var dtsource = JSON.stringify(sourceNewUser);
+                console.log("dtsource",dtsource);
+                
+                var ds = new DataSet();
+                dv = ds.createView();
+                console.log("ds",ds);
+                console.log("dv",dv);
+                dv.source(dtsource); 
+                //dv = new DataSet.View().source(dtsource); 
                 dv.transform({
                 type: 'fold',
                 fields: [ 'todayNumber', 'todayNumberIos', 'todayNumberAnd' ], // 展开字段集
-                key: 'time', // key字段
-                value: 'number', // value字段
+                key: 'type', // key字段
+                value: 'value', // value字段
                 });
             }
             
@@ -112,7 +131,7 @@ class NFDailyNewSourceUser extends React.Component {
             </Breadcrumb>
 
             { dv && 
-                <Chart height={400} data={dv} scale={cols} forceFit>
+                <Chart height={400} data={dv} scale={scale} forceFit>
                 <Legend />
                 <Axis name="time" />
                 <Axis name="number" label={{formatter: val => `${val}`}}/>

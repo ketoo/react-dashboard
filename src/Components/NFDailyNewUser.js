@@ -98,26 +98,48 @@ class NFDailyNewUser extends React.Component {
             </Breadcrumb>
 
             { zoneUserData && 
+             <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+             { 
+                 
+                 <div>
+                           <Breadcrumb style={{ margin: '16px 0' }}>
+                                <Button style={{ marginLeft: 8 }}>
+                                    新增
+                                </Button>
+                            </Breadcrumb>
                 <Chart height={400} data={zoneUserData} scale={cols} forceFit>
                     <Axis name="time" />
                     <Axis name="todayNumber"/>
                     <Tooltip/>
-                    <Geom type="line" position="time*number" size={2} />
+                    <Geom type="line" position="time*todayNumber" size={2} />
                     <Geom type='point' position="time*todayNumber" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
                 </Chart>
-
-                
+                </div>
+             }
+             </div>
             }
+
+            <div> </div>
+
             { zoneUserData && 
+            <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+            { 
+                 <div>
+                     <Breadcrumb style={{ margin: '16px 0' }}>
+                                <Button style={{ marginLeft: 8 }}>
+                                    历史总量
+                                </Button>
+                            </Breadcrumb>
                 <Chart height={400} data={zoneUserData} scale={cols} forceFit>
                     <Axis name="time" />
                     <Axis name="totalNumber"/>
                     <Tooltip/>
-                    <Geom type="line" position="time*number" size={2} />
+                    <Geom type="line" position="time*totalNumber" size={2} />
                     <Geom type='point' position="time*totalNumber" size={4} shape={'circle'} style={{ stroke: '#fff', lineWidth: 1}} />
                 </Chart>
-
-                
+                </div>
+            }
+            </div>
             }
                 
           </Content>
