@@ -104,7 +104,7 @@ class NFDailyNewUser extends React.Component {
                  <div>
                            <Breadcrumb style={{ margin: '16px 0' }}>
                                 <Button style={{ marginLeft: 8 }}>
-                                    新增
+                                    新增 New Users
                                 </Button>
                             </Breadcrumb>
                 <Chart height={400} data={zoneUserData} scale={cols} forceFit>
@@ -127,7 +127,7 @@ class NFDailyNewUser extends React.Component {
                  <div>
                      <Breadcrumb style={{ margin: '16px 0' }}>
                                 <Button style={{ marginLeft: 8 }}>
-                                    历史总量
+                                    历史总量 Total Users
                                 </Button>
                             </Breadcrumb>
                 <Chart height={400} data={zoneUserData} scale={cols} forceFit>

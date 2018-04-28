@@ -93,23 +93,30 @@ class NFDailyNewSourceUser extends React.Component {
           );
           
             var dv1;
+            var dv2;
             if (sourceNewUser)
             {
                 var dtsource = JSON.stringify(sourceNewUser);
-                console.log("dtsource",dtsource);
-                
-                var ds = new DataSet();
-                dv1 = ds.createView();
-                console.log("ds",ds);
-                console.log("dv",dv1);
-                dv1.source(dtsource); 
-                //dv = new DataSet.View().source(dtsource); 
+                var parsed = JSON.parse(dtsource);
+                var arr = [];
+                for(var x in parsed){
+                  arr.push(parsed[x]);
+                }
+
+                dv1 = new DataSet.View().source(arr); 
+                dv2 = new DataSet.View().source(arr); 
                 dv1.transform({
                 type: 'fold',
                 fields: [ 'todayNumber', 'todayNumberIos', 'todayNumberAnd' ], // 展开字段集
                 key: 'type', // key字段
                 value: 'value', // value字段
                 });
+                dv2.transform({
+                    type: 'fold',
+                    fields: [ 'totalNumber', 'totalNumberIos', 'totalNumberAnd' ], // 展开字段集
+                    key: 'type', // key字段
+                    value: 'value', // value字段
+                    });
             };
 
     return (
@@ -131,14 +138,46 @@ class NFDailyNewSourceUser extends React.Component {
 
 
             { dv1 && 
-              <Chart height={400} data={dv1} padding={'auto'} scale={scale} forceFit>
-              <Tooltip crosshairs />
-              <Axis />
-              <Legend />
-              <Geom type="area" position="time*value" color="type" shape='smooth' />
-              <Geom type="line" position="time*value" color="type" shape='smooth'  size={2} />
-            </Chart>
+                <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+                { 
+                     <div>
+                     <Breadcrumb style={{ margin: '16px 0' }}>
+                          <Button style={{ marginLeft: 8 }}>
+                              新增 New Users
+                          </Button>
+                      </Breadcrumb>
+                    <Chart height={400} data={dv1} padding={'auto'} scale={scale} forceFit>
+                        <Tooltip crosshairs />
+                        <Axis />
+                        <Legend />
+                        <Geom type="area" position="time*value" color="type" shape='smooth' />
+                        <Geom type="line" position="time*value" color="type" shape='smooth'  size={2} />
+                    </Chart>
+                    </div>
+                }
+                </div>
             }
+            <div> </div>
+            { dv2 && 
+                <div style={{ padding: 0, background: '#fff', minHeight: 360 }}>
+                { 
+                    <div>
+                    <Breadcrumb style={{ margin: '16px 0' }}>
+                         <Button style={{ marginLeft: 8 }}>
+                             历史总量 Total Users
+                         </Button>
+                     </Breadcrumb>
+                    <Chart height={400} data={dv2} padding={'auto'} scale={scale} forceFit>
+                        <Tooltip crosshairs />
+                        <Axis />
+                        <Legend />
+                        <Geom type="area" position="time*value" color="type" shape='smooth' />
+                        <Geom type="line" position="time*value" color="type" shape='smooth'  size={2} />
+                    </Chart>
+                    </div>
+                }
+                </div>
+              }
                 
           </Content>
     );
